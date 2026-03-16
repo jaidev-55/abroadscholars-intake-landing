@@ -103,15 +103,41 @@ const ApplyModal = ({ onClose }: { onClose: () => void }) => {
     if (errors[field]) setErrors((p) => ({ ...p, [field]: "" }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validate()) return;
-    setLoading(true);
 
-    setTimeout(() => {
-      setLoading(false);
+    try {
+      setLoading(true);
+
+      const res = await fetch("/api/leads", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name,
+          phone,
+          city,
+          country,
+          source: "website-form",
+          page: window.location.pathname,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (!data.success) {
+        throw new Error("Failed to submit lead");
+      }
+
       setSubmitted(true);
-    }, 1500);
+    } catch (err) {
+      console.error(err);
+      alert("Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   const inputBase = (hasError: boolean) =>

@@ -32,7 +32,7 @@ const stats = [
   },
   {
     icon: PiUsersFourBold,
-    value: "8,000+",
+    value: "1000+",
     label: "Students Placed",
     description: "Successful admissions across top destinations",
     color: "text-amber-600",
@@ -45,7 +45,7 @@ const CompanyIntroSection = () => {
   const { openModal } = useApplyModal();
   return (
     <section className="relative bg-white overflow-hidden">
-      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-10 py-10 sm:py-16 lg:py-20">
+      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-10 py-10 sm:py-16 ">
         <div className="grid lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-16 items-center">
           <div>
             {/* Section label */}
@@ -57,7 +57,7 @@ const CompanyIntroSection = () => {
             </div>
 
             {/* Heading */}
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-gray-900 leading-tight tracking-tight">
+            <h2 className="text-2xl sm:text-6xl  font-extrabold text-gray-900 leading-tight tracking-tight">
               Your Study Abroad Journey{" "}
               <span className="relative inline-block">
                 <span className="relative z-10 text-[#175ea4]">
@@ -69,7 +69,7 @@ const CompanyIntroSection = () => {
 
             {/* Location tag */}
             <div className="inline-flex items-center gap-1.5 mt-3 sm:mt-4 px-3 py-1.5 rounded-lg bg-gray-50 border border-gray-100">
-              <IoLocationSharp className="w-3.5 h-3.5 text-red-500 flex-shrink-0" />
+              <IoLocationSharp className="w-3.5 h-3.5 text-red-500 shrink-0" />
               <span className="text-xs sm:text-sm font-medium text-gray-600">
                 Abroad Scholar, Anna Nagar, Chennai
               </span>
@@ -119,7 +119,7 @@ const CompanyIntroSection = () => {
             {/* CTA */}
             <button
               onClick={openModal}
-              className="inline-flex items-center gap-2 mt-6 sm:mt-8 px-5 sm:px-6 py-2.5 sm:py-3 rounded-xl bg-[#175ea4] hover:bg-[#1a6bbb] text-white text-sm font-bold transition-all duration-200 hover:shadow-lg hover:shadow-[#175ea4]/20 active:scale-[0.97] group"
+              className="inline-flex cursor-pointer items-center gap-2 mt-6 sm:mt-8 px-5 sm:px-6 py-2.5 sm:py-3 rounded-xl bg-[#175ea4] hover:bg-[#1a6bbb] text-white text-sm font-bold transition-all duration-200 hover:shadow-lg hover:shadow-[#175ea4]/20 active:scale-[0.97] group"
             >
               Get Offer in 24Hrs
               <HiOutlineArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5" />
@@ -138,11 +138,11 @@ const CompanyIntroSection = () => {
                   className="w-full h-auto object-cover"
                 />
                 {/* Soft bottom gradient */}
-                <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-white/40 to-transparent pointer-events-none" />
+                <div className="absolute inset-x-0 bottom-0 h-24 bg-linear-to-t from-white/40 to-transparent pointer-events-none" />
               </div>
 
               {/* Floating trust card */}
-              <div className="absolute -bottom-4 -left-4 z-20 flex items-center gap-3 px-4 py-3 rounded-xl bg-white shadow-lg shadow-gray-900/[0.06] border border-gray-100">
+              <div className="absolute -bottom-4 -left-4 z-20 flex items-center gap-3 px-4 py-3 rounded-xl bg-white shadow-lg shadow-gray-900/6 border border-gray-100">
                 <span className="flex items-center justify-center w-10 h-10 rounded-full bg-amber-50 border border-amber-100">
                   <PiTrophyBold className="w-5 h-5 text-amber-600" />
                 </span>
@@ -164,7 +164,7 @@ const CompanyIntroSection = () => {
       </div>
 
       {/* Bottom separator */}
-      <div className="w-full h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent" />
+      <div className="w-full h-px bg-linear-to-r from-transparent via-gray-200 to-transparent" />
     </section>
   );
 };

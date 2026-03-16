@@ -23,7 +23,7 @@ const Header = () => {
       {/* Top micro-bar — guaranteed single line */}
       <div className="w-full bg-[#175ea4] text-white text-center py-1.5 px-2 overflow-hidden">
         <p className="flex items-center justify-center gap-1.5 text-[9px] sm:text-xs font-semibold tracking-wide whitespace-nowrap">
-          <span className="relative flex h-1.5 w-1.5 flex-shrink-0">
+          <span className="relative flex h-1.5 w-1.5 shrink-0">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
             <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-400" />
           </span>
@@ -38,13 +38,13 @@ const Header = () => {
       <header
         className={`sticky top-0 z-50 w-full bg-white transition-all duration-300 ${
           scrolled
-            ? "shadow-md shadow-black/[0.06] py-1.5 sm:py-2.5"
-            : "shadow-sm shadow-black/[0.04] py-2 sm:py-3 md:py-3.5"
+            ? "shadow-md shadow-black/6 py-1.5 sm:py-2.5"
+            : "shadow-sm shadow-black/4 py-2 sm:py-3 md:py-3.5"
         }`}
       >
         <div className="max-w-7xl mx-auto flex items-center justify-between px-2.5 sm:px-6 lg:px-10">
           {/* Logo */}
-          <Link href="/" className="flex-shrink-0" aria-label="Home">
+          <Link href="/" className="shrink-0" aria-label="Home">
             <Image
               src="/images/logo.webp"
               alt="Abroad Scholars"
@@ -81,14 +81,14 @@ const Header = () => {
               rel="noopener noreferrer"
               className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-sm font-semibold transition-all duration-200 hover:shadow-lg hover:shadow-emerald-600/20 active:scale-[0.97]"
             >
-              <RiWhatsappFill className="w-[18px] h-[18px]" />
+              <RiWhatsappFill className="w-4.5 h-4.5" />
               <span className="hidden lg:inline">WhatsApp Us</span>
               <span className="lg:hidden">Chat</span>
             </a>
 
             <button
               onClick={openModal}
-              className="flex items-center gap-2 px-6 py-2.5 rounded-xl bg-[#175ea4] text-white text-sm font-bold"
+              className="flex cursor-pointer items-center gap-2 px-6 py-2.5 rounded-xl bg-[#175ea4] text-white text-sm font-bold"
             >
               Get Offer in 24Hrs
             </button>

@@ -59,7 +59,7 @@ const ProcessSection = () => {
   const { openModal } = useApplyModal();
   return (
     <section className="relative bg-gray-50/50 overflow-hidden">
-      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-10 py-10 sm:py-16 lg:py-20">
+      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-10 py-10 sm:py-16 ">
         {/* ── Header ── */}
         <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-14">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white border border-gray-200 shadow-sm mb-4 sm:mb-5">
@@ -69,7 +69,7 @@ const ProcessSection = () => {
             </span>
           </div>
 
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-gray-900 leading-tight tracking-tight">
+          <h2 className="text-2xl sm:text-6xl  font-extrabold text-gray-900 leading-tight tracking-tight">
             Three Simple Steps to Your{" "}
             <span className="relative inline-block">
               <span className="relative z-10 text-[#175ea4]">
@@ -184,7 +184,7 @@ const ProcessSection = () => {
         <div className="mt-10 sm:mt-14 text-center">
           <button
             onClick={openModal}
-            className="inline-flex items-center gap-2.5 px-7 sm:px-9 py-3.5 sm:py-4 rounded-2xl bg-linear-to-r from-[#175ea4] to-blue-500 hover:from-[#1a6bbb] hover:to-blue-400 text-white text-sm sm:text-base font-bold transition-all duration-300 hover:shadow-xl hover:shadow-[#175ea4]/25 active:scale-[0.97] group"
+            className="inline-flex cursor-pointer items-center gap-2.5 px-7 sm:px-9 py-3.5 sm:py-4 rounded-2xl bg-linear-to-r from-[#175ea4] to-blue-500 hover:from-[#1a6bbb] hover:to-blue-400 text-white text-sm sm:text-base font-bold transition-all duration-300 hover:shadow-xl hover:shadow-[#175ea4]/25 active:scale-[0.97] group"
           >
             Get Offer in 24Hrs
             <HiOutlineArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />

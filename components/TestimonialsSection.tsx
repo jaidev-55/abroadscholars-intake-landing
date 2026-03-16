@@ -2,11 +2,12 @@
 import { useState } from "react";
 import Image from "next/image";
 import { HiOutlineArrowRight } from "react-icons/hi2";
-import { IoStarSharp, IoPlayCircle } from "react-icons/io5";
-import { PiQuotesBold } from "react-icons/pi";
+import { IoStarSharp, IoPlayCircle, IoCloseCircle } from "react-icons/io5";
+import { PiQuotesBold, PiVideoFill } from "react-icons/pi";
 import { RiDoubleQuotesL } from "react-icons/ri";
 import { useApplyModal } from "./ApplyModal";
 
+/* ── Data ── */
 const textReviews = [
   {
     name: "Rakshitha",
@@ -34,8 +35,32 @@ const textReviews = [
   },
 ];
 
-const YOUTUBE_VIDEO_ID = "R7ThSdxJmao";
-const THUMBNAIL_URL = `https://img.youtube.com/vi/${YOUTUBE_VIDEO_ID}/hqdefault.jpg`;
+const videoTestimonials = [
+  {
+    id: "R7ThSdxJmao",
+    name: "Nega",
+    achievement: "Band 8 Achieved",
+    subtitle: "IELTS Student",
+  },
+  {
+    id: "R7ThSdxJmao", // Replace with actual video IDs
+    name: "Priya",
+    achievement: "UK Admission",
+    subtitle: "Masters in Business",
+  },
+  {
+    id: "R7ThSdxJmao", // Replace with actual video IDs
+    name: "Arjun",
+    achievement: "Canada PR Path",
+    subtitle: "MS in Computer Science",
+  },
+  {
+    id: "R7ThSdxJmao", // Replace with actual video IDs
+    name: "Sneha",
+    achievement: "Full Scholarship",
+    subtitle: "Germany · MBA",
+  },
+];
 
 const Stars = () => (
   <div className="flex items-center gap-0.5">
@@ -49,8 +74,8 @@ const Stars = () => (
 );
 
 const TestimonialsSection = () => {
-  const [videoPlaying, setVideoPlaying] = useState(false);
   const { openModal } = useApplyModal();
+  const [activeVideo, setActiveVideo] = useState<string | null>(null);
 
   return (
     <section className="relative bg-white overflow-hidden">
@@ -80,77 +105,107 @@ const TestimonialsSection = () => {
           </p>
         </div>
 
-        {/* ── Bento grid ── */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
-          <ReviewCard review={textReviews[0]} />
-
-          {/* ══ Center — Video Card ══ */}
-          <div className="sm:col-span-2 lg:col-span-1 lg:row-span-2 relative rounded-xl sm:rounded-2xl overflow-hidden bg-gray-900 min-h-80 sm:min-h-95 lg:min-h-0">
-            {!videoPlaying ? (
-              <>
-                {/* Thumbnail — Next.js Image with fill */}
-                <Image
-                  src={THUMBNAIL_URL}
-                  alt="Nega — IELTS Band 8 Student Testimonial"
-                  fill
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                  className="object-cover"
-                  priority
-                />
-
-                {/* Gradient overlay */}
-                <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/20 to-black/10 z-1" />
-
-                {/* Play button */}
-                <button
-                  onClick={() => setVideoPlaying(true)}
-                  className="absolute inset-0 z-2 flex flex-col items-center justify-center gap-3 cursor-pointer group"
-                  aria-label="Play Nega's testimonial video"
-                >
-                  <span className="absolute w-16 h-16 sm:w-20 sm:h-20 rounded-full border-2 border-white/30 animate-ping-slow" />
-
-                  <span className="relative flex items-center justify-center w-16 h-16 sm:w-18 sm:h-18 rounded-full bg-white/20 backdrop-blur-sm border border-white/30 transition-all duration-300 group-hover:bg-white/30 group-hover:scale-110">
-                    <IoPlayCircle className="w-10 h-10 sm:w-12 sm:h-12 text-white drop-shadow-lg" />
-                  </span>
-
-                  <span className="text-white/80 text-xs sm:text-sm font-medium bg-black/20 backdrop-blur-sm px-3 py-1 rounded-full">
-                    Watch Nega&apos;s Story
-                  </span>
-                </button>
-
-                {/* Bottom info */}
-                <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-5 z-2">
-                  <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-amber-400 text-[10px] sm:text-xs font-bold text-gray-900 mb-2 shadow-sm">
-                    🎓 Band 8 Achieved
-                  </span>
-                  <p className="text-white font-bold text-sm sm:text-base">
-                    Nega
-                  </p>
-                  <p className="text-white/60 text-[11px] sm:text-xs">
-                    IELTS Student · Trained with Abroad Scholars
-                  </p>
-                </div>
-
-                <div className="absolute inset-0 rounded-xl sm:rounded-2xl ring-1 ring-white/10 pointer-events-none z-1" />
-              </>
-            ) : (
-              <iframe
-                src={`https://www.youtube.com/embed/${YOUTUBE_VIDEO_ID}?autoplay=1&rel=0&modestbranding=1&playsinline=1`}
-                title="Nega — IELTS Band 8 Student Testimonial"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-                className="absolute inset-0 w-full h-full border-0"
-              />
-            )}
+        {/* ══ Section 1: Video testimonials — horizontal scroll ══ */}
+        <div className="mb-8 sm:mb-12">
+          <div className="flex items-center gap-2 mb-4 sm:mb-5">
+            <PiVideoFill className="w-4 h-4 sm:w-5 sm:h-5 text-[#175ea4]" />
+            <h3 className="text-sm sm:text-base font-bold text-gray-900">
+              Video Stories
+            </h3>
+            <span className="text-[10px] sm:text-xs text-gray-400 ml-1">
+              — tap to play
+            </span>
           </div>
 
-          <ReviewCard review={textReviews[1]} />
-          <ReviewCard review={textReviews[2]} />
-          <ReviewCard review={textReviews[3]} />
+          <div className="flex gap-3 sm:gap-4 overflow-x-auto pb-4 -mx-3 px-3 sm:-mx-0 sm:px-0 snap-x snap-mandatory scrollbar-hide">
+            {videoTestimonials.map((video, i) => (
+              <div
+                key={i}
+                className="flex-shrink-0 w-[200px] sm:w-[220px] lg:w-[240px] snap-start"
+              >
+                <div className="relative rounded-xl sm:rounded-2xl overflow-hidden bg-gray-900 aspect-[9/14] group">
+                  {activeVideo === `${video.id}-${i}` ? (
+                    /* Playing state — inline iframe */
+                    <>
+                      <iframe
+                        src={`https://www.youtube.com/embed/${video.id}?autoplay=1&rel=0&modestbranding=1&playsinline=1`}
+                        title={`${video.name} — Student Testimonial`}
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                        className="absolute inset-0 w-full h-full border-0"
+                      />
+                      {/* Close button */}
+                      <button
+                        onClick={() => setActiveVideo(null)}
+                        className="absolute top-2 right-2 z-10 flex items-center justify-center w-7 h-7 rounded-full bg-black/50 backdrop-blur-sm hover:bg-black/70 transition-colors"
+                        aria-label="Stop video"
+                      >
+                        <IoCloseCircle className="w-5 h-5 text-white" />
+                      </button>
+                    </>
+                  ) : (
+                    /* Thumbnail state */
+                    <>
+                      <Image
+                        src={`https://img.youtube.com/vi/${video.id}/hqdefault.jpg`}
+                        alt={`${video.name} — ${video.subtitle}`}
+                        fill
+                        sizes="240px"
+                        className="object-cover"
+                      />
+
+                      {/* Overlay */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-black/5 z-[1]" />
+
+                      {/* Play button */}
+                      <button
+                        onClick={() => setActiveVideo(`${video.id}-${i}`)}
+                        className="absolute inset-0 z-[2] flex items-center justify-center cursor-pointer group/play"
+                        aria-label={`Play ${video.name}'s video`}
+                      >
+                        <span className="flex items-center justify-center w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm border border-white/30 transition-all duration-300 group-hover/play:bg-white/30 group-hover/play:scale-110">
+                          <IoPlayCircle className="w-8 h-8 text-white drop-shadow-lg" />
+                        </span>
+                      </button>
+
+                      {/* Bottom info */}
+                      <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-3.5 z-[2]">
+                        <span className="inline-flex items-center px-2 py-0.5 rounded bg-amber-400 text-[9px] sm:text-[10px] font-bold text-gray-900 mb-1.5">
+                          🎓 {video.achievement}
+                        </span>
+                        <p className="text-white font-bold text-sm">
+                          {video.name}
+                        </p>
+                        <p className="text-white/50 text-[10px] sm:text-[11px]">
+                          {video.subtitle}
+                        </p>
+                      </div>
+                    </>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* ══ Section 2: Text reviews grid ══ */}
+        <div>
+          <div className="flex items-center gap-2 mb-4 sm:mb-5">
+            <RiDoubleQuotesL className="w-4 h-4 sm:w-5 sm:h-5 text-[#175ea4]" />
+            <h3 className="text-sm sm:text-base font-bold text-gray-900">
+              Written Reviews
+            </h3>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+            {textReviews.map((review, i) => (
+              <ReviewCard key={i} review={review} />
+            ))}
+          </div>
         </div>
 
         {/* ── Google rating bar ── */}
-        <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 py-4 px-5 rounded-xl bg-gray-50 border border-gray-100 max-w-md sm:max-w-none mx-auto">
+        <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 py-4 px-5 rounded-xl bg-gray-50 border border-gray-100 max-w-md sm:max-w-none mx-auto">
           <div className="flex items-center gap-2">
             <span className="text-xl sm:text-2xl font-extrabold text-gray-900">
               4.9
@@ -168,14 +223,15 @@ const TestimonialsSection = () => {
         <div className="mt-6 sm:mt-10 text-center">
           <button
             onClick={openModal}
-            className="inline-flex items-center gap-2 px-6 sm:px-8 py-3 sm:py-3.5 rounded-xl bg-[#175ea4] hover:bg-[#1a6bbb] text-white text-sm sm:text-base font-bold transition-all duration-200 hover:shadow-lg hover:shadow-[#175ea4]/20 active:scale-[0.97] group"
+            className="inline-flex cursor-pointer items-center gap-2.5 px-7 sm:px-9 py-3.5 sm:py-4 rounded-2xl bg-gradient-to-r from-[#175ea4] to-blue-500 hover:from-[#1a6bbb] hover:to-blue-400 text-white text-sm sm:text-base font-bold transition-all duration-300 hover:shadow-xl hover:shadow-[#175ea4]/25 active:scale-[0.97] group"
           >
             Get Offer in 24Hrs
-            <HiOutlineArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5" />
+            <HiOutlineArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
           </button>
         </div>
       </div>
 
+      {/* Animations + scrollbar hide */}
       <style>{`
         @keyframes ping-slow {
           0% { transform: scale(1); opacity: 0.5; }
@@ -184,19 +240,22 @@ const TestimonialsSection = () => {
         .animate-ping-slow {
           animation: ping-slow 2s cubic-bezier(0, 0, 0.2, 1) infinite;
         }
+        .scrollbar-hide::-webkit-scrollbar { display: none; }
+        .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
       `}</style>
 
-      <div className="w-full h-px bg-linear-to-r from-transparent via-gray-200 to-transparent" />
+      <div className="w-full h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent" />
     </section>
   );
 };
 
+/* ── Review card ── */
 const ReviewCard = ({
   review,
 }: {
   review: { name: string; achievement: string; quote: string };
 }) => (
-  <div className="relative bg-gray-50 hover:bg-blue-50/50 border border-gray-100 hover:border-blue-100 rounded-xl sm:rounded-2xl p-4 sm:p-5 transition-all duration-200 group">
+  <div className="relative bg-gray-50 hover:bg-blue-50/50 border border-gray-100 hover:border-blue-100 rounded-xl sm:rounded-2xl p-4 sm:p-5 transition-all duration-200">
     <RiDoubleQuotesL className="w-6 h-6 sm:w-7 sm:h-7 text-[#175ea4]/10 mb-2 sm:mb-3" />
     <Stars />
     <p className="mt-2.5 sm:mt-3 text-[12px] sm:text-[13px] text-gray-600 leading-relaxed">

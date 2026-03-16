@@ -30,35 +30,53 @@ const HeroSection = () => {
             </div>
 
             {/* Headline */}
-            <h1 className="text-gray-900 text-3xl sm:text-4xl md:text-5xl lg:text-[3.4rem] font-extrabold leading-[1.12] tracking-tight">
-              Get Your Admission
+            <h1 className="text-gray-900 text-3xl sm:text-4xl md:text-5xl lg:text-[3.8rem] font-extrabold leading-[1.1] tracking-tight">
+              Study Abroad in{" "}
+              <span className="text-[#175ea4]">Top Universities</span>
               <br className="hidden sm:block" />
-              <span className="sm:hidden"> </span>
-              in Just{" "}
-              <span className="relative inline-block">
-                <span className="relative z-10 text-[#175ea4]">24 Hours!</span>
-                <span className="absolute bottom-0.5 sm:bottom-1 left-0 w-full h-2.5 sm:h-3 bg-[#175ea4]/10 rounded-sm -skew-x-2" />
-              </span>
+              Offer in <span className="text-[#175ea4]">24 Hours</span>
             </h1>
 
-            {/* Sub-copy */}
-            <p className="mt-4 sm:mt-5 text-sm sm:text-base lg:text-lg text-gray-500 leading-relaxed max-w-md lg:max-w-lg">
-              No interviews. No delays. Secure your spot at top universities
-              abroad — we handle everything from application to offer letter.
+            {/* Sub-copy — destination-specific */}
+            <p className="mt-4 sm:mt-5 text-sm sm:text-base lg:text-lg text-gray-500 leading-relaxed max-w-md lg:max-w-xl">
+              From London to New York, Toronto to Melbourne — we help ambitious
+              Indian students secure admissions at top-ranked universities
+              across 15+ countries. With expert guidance at every step, we make
+              your study abroad journey smooth, strategic, and successful.
             </p>
 
-            {/* Check-list trust points */}
+            {/* Destination flags row */}
+            <div className="mt-4 sm:mt-5 flex items-center gap-3 flex-wrap">
+              {[
+                { flag: "🇬🇧", name: "UK" },
+                { flag: "🇺🇸", name: "USA" },
+                { flag: "🇨🇦", name: "Canada" },
+                { flag: "🇦🇺", name: "Australia" },
+                { flag: "🇩🇪", name: "Germany" },
+                { flag: "🇮🇪", name: "Ireland" },
+              ].map((d, i) => (
+                <span
+                  key={i}
+                  className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-gray-50 border border-gray-100 text-[11px] sm:text-xs font-medium text-gray-600"
+                >
+                  <span className="text-base">{d.flag}</span>
+                  {d.name}
+                </span>
+              ))}
+            </div>
+
+            {/* Trust checklist */}
             <ul className="mt-5 sm:mt-6 space-y-2 sm:space-y-2.5">
               {[
-                "Direct admission — no entrance exams",
-                "230+ partner universities worldwide",
-                "Visa guidance & pre-departure support",
+                "Direct admission to 230+ partner universities",
+                "98% visa approval rate — highest in Chennai",
+                "Scholarship support up to ₹10L+",
               ].map((item, i) => (
                 <li
                   key={i}
                   className="flex items-start sm:items-center gap-2.5 text-sm sm:text-base text-gray-700"
                 >
-                  <span className="flex items-center justify-center w-5 h-5 mt-0.5 sm:mt-0 rounded-full bg-emerald-50 border border-emerald-100 flex-shrink-0">
+                  <span className="flex items-center justify-center w-5 h-5 mt-0.5 sm:mt-0 rounded-full bg-emerald-50 border border-emerald-100 shrink-0">
                     <HiOutlineCheck className="w-3 h-3 text-emerald-600" />
                   </span>
                   {item}
@@ -68,19 +86,16 @@ const HeroSection = () => {
 
             {/* CTAs */}
             <div className="mt-7 sm:mt-8 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
-              {/* Primary CTA */}
               <button
                 onClick={openModal}
                 className="relative cursor-pointer flex items-center justify-center gap-2 px-6 sm:px-7 py-3 sm:py-3.5 rounded-xl bg-[#175ea4] hover:bg-[#1a6bbb] text-white text-sm sm:text-base font-bold transition-all duration-200 hover:shadow-xl hover:shadow-[#175ea4]/20 active:scale-[0.97] group"
               >
-                Get Offer in 24Hrs
+                Get Your Free Counselling
                 <HiOutlineArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5" />
-                <span className="absolute inset-0 rounded-xl animate-pulse-ring pointer-events-none" />
               </button>
 
-              {/* WhatsApp CTA */}
               <a
-                href="https://wa.me/919500117792?text=Hi%2C%20I%27m%20interested%20in%20studying%20abroad"
+                href="https://wa.me/919500117792?text=Hi%2C%20I%20want%20to%20study%20in%20the%20UK.%20Can%20you%20help%3F"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center justify-center gap-2 px-6 sm:px-7 py-3 sm:py-3.5 rounded-xl bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 text-emerald-700 text-sm sm:text-base font-semibold transition-all duration-200 active:scale-[0.97]"
@@ -90,51 +105,53 @@ const HeroSection = () => {
               </a>
             </div>
 
-            {/* Social proof strip */}
+            {/* Social proof */}
             <div className="mt-7 sm:mt-8 pt-5 sm:pt-6 border-t border-gray-100">
               <div className="grid grid-cols-3 gap-3 sm:flex sm:flex-wrap sm:items-center sm:gap-x-6 sm:gap-y-3">
-                <div className="flex flex-col sm:flex-row items-center sm:items-center gap-1 sm:gap-2 text-center sm:text-left">
-                  <PiStudentBold className="w-5 h-5 text-[#175ea4]" />
-                  <span className="text-xs sm:text-sm text-gray-500">
-                    <span className="font-bold text-gray-900 block sm:inline">
-                      8,000+
-                    </span>{" "}
-                    <span className="hidden sm:inline">Students</span>
-                    <span className="sm:hidden text-[10px]">Students</span>
-                  </span>
-                </div>
-                <div className="flex flex-col sm:flex-row items-center sm:items-center gap-1 sm:gap-2 text-center sm:text-left">
-                  <PiGlobeHemisphereWestBold className="w-5 h-5 text-[#175ea4]" />
-                  <span className="text-xs sm:text-sm text-gray-500">
-                    <span className="font-bold text-gray-900 block sm:inline">
-                      35+
-                    </span>{" "}
-                    <span className="hidden sm:inline">Countries</span>
-                    <span className="sm:hidden text-[10px]">Countries</span>
-                  </span>
-                </div>
-                <div className="flex flex-col sm:flex-row items-center sm:items-center gap-1 sm:gap-2 text-center sm:text-left">
-                  <PiClockCountdownBold className="w-5 h-5 text-[#175ea4]" />
-                  <span className="text-xs sm:text-sm text-gray-500">
-                    <span className="font-bold text-gray-900 block sm:inline">
-                      24hr
-                    </span>{" "}
-                    <span className="hidden sm:inline">Offer Letter</span>
-                    <span className="sm:hidden text-[10px]">Offer</span>
-                  </span>
-                </div>
+                {[
+                  {
+                    icon: PiStudentBold,
+                    value: "1000+",
+                    label: "Students Placed",
+                  },
+                  {
+                    icon: PiGlobeHemisphereWestBold,
+                    value: "15+",
+                    label: "Countries",
+                  },
+                  {
+                    icon: PiClockCountdownBold,
+                    value: "24hr",
+                    label: "Offer Letter",
+                  },
+                ].map((stat, i) => (
+                  <div
+                    key={i}
+                    className="flex flex-col sm:flex-row items-center sm:items-center gap-1 sm:gap-2 text-center sm:text-left"
+                  >
+                    <stat.icon className="w-5 h-5 text-[#175ea4]" />
+                    <span className="text-xs sm:text-sm text-gray-500">
+                      <span className="font-bold text-gray-900 block sm:inline">
+                        {stat.value}
+                      </span>{" "}
+                      <span className="hidden sm:inline">{stat.label}</span>
+                      <span className="sm:hidden text-[10px]">
+                        {stat.label}
+                      </span>
+                    </span>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
 
-          {/*  Right: Hero Image  */}
+          {/* Right: Hero Image */}
           <div className="order-1 lg:order-2">
             <div className="relative mx-auto max-w-md sm:max-w-lg lg:max-w-none">
-              {/* Main image */}
-              <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden shadow-xl shadow-gray-200/60 w-full h-[600px]">
+              <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden shadow-xl shadow-gray-200/60 w-full h-150">
                 <Image
                   src="/images/Hero_img.jpeg"
-                  alt="Students celebrating their admission success with Abroad Scholars"
+                  alt="Indian student holding university admission offer letter"
                   fill
                   className="object-cover"
                   priority
@@ -148,10 +165,10 @@ const HeroSection = () => {
                 </span>
                 <span className="flex flex-col leading-tight">
                   <span className="text-[11px] sm:text-xs font-bold text-gray-900">
-                    Trusted Partner
+                    Trusted by 1000+ Students
                   </span>
                   <span className="text-[9px] sm:text-[10px] text-gray-500">
-                    8,000+ students placed
+                    Chennai&apos;s #1 Study Abroad Partner
                   </span>
                 </span>
               </div>
@@ -165,7 +182,7 @@ const HeroSection = () => {
                 <FiArrowUpRight className="w-3 h-3 text-amber-400" />
               </div>
 
-              {/* Subtle bg accent behind image */}
+              {/* Offset bg accent */}
               <div className="absolute -z-10 top-4 sm:top-6 -right-3 sm:-right-4 w-full h-full rounded-2xl sm:rounded-3xl bg-blue-50 border border-blue-100/50" />
             </div>
           </div>

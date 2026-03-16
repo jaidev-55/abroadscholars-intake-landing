@@ -11,12 +11,26 @@ import { RiWhatsappFill } from "react-icons/ri";
 import { useApplyModal } from "./ApplyModal";
 
 const universityPartners = [
-  "Berlin School of Business & Innovation",
-  "University System of Maryland",
-  "Mercer University",
-  "Northeastern University",
+  "University of Bristol",
+  "University College London (UCL)",
+  "University of Manchester",
+  "Massachusetts Institute of Technology (MIT)",
+  "Stanford University",
+  "Harvard University",
+  "Trinity College Dublin",
+  "University College Dublin",
+  "University of Melbourne",
+  "Heriot-Watt University Dubai",
+  "University of Essex",
+  "University of Hertfordshire",
   "Coventry University",
-  "University at Buffalo",
+  "University of Illinois Chicago",
+  "San Francisco State University",
+  "Dublin City University",
+  "University of Limerick",
+  "Deakin University",
+  "Griffith University",
+  "University of Wollongong Dubai",
 ];
 
 const CTASection = () => {
@@ -25,21 +39,42 @@ const CTASection = () => {
   const [loading, setLoading] = useState(false);
   const { openModal } = useApplyModal();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!phone || phone.length < 10) return;
+
     setLoading(true);
-    // Replace with your actual form submission logic
-    setTimeout(() => {
-      setLoading(false);
-      setSubmitted(true);
-    }, 1200);
+
+    try {
+      const res = await fetch("/api/leads", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: "Callback Request",
+          phone,
+          city: "Not provided",
+          country: "Callback Lead",
+        }),
+      });
+
+      const data = await res.json();
+
+      if (data.success) {
+        setSubmitted(true);
+        setPhone("");
+      }
+    } catch (err) {
+      console.error("Lead submission failed", err);
+    }
+
+    setLoading(false);
   };
 
   return (
     <section id="apply" className="relative bg-blue-50/70 overflow-hidden">
-      {/* ── Top: Free counselling CTA ── */}
-      <div className="relative max-w-7xl mx-auto px-3 sm:px-6 lg:px-10 pt-10 sm:pt-16 lg:pt-20 pb-8 sm:pb-12">
+      <div className="relative max-w-7xl mx-auto px-3 sm:px-6 lg:px-10 py-16 ">
         <div className="text-center max-w-2xl mx-auto">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white border border-blue-100 mb-4 sm:mb-5">
             <PiGraduationCapBold className="w-3.5 h-3.5 text-[#175ea4]" />
@@ -48,7 +83,7 @@ const CTASection = () => {
             </span>
           </div>
 
-          <h2 className="text-2xl sm:text-3xl lg:text-[2.6rem] font-extrabold text-gray-900 leading-tight tracking-tight">
+          <h2 className="text-2xl sm:text-6xl font-extrabold text-gray-900 leading-tight tracking-tight">
             Get a <span className="text-[#175ea4]">Free Counselling</span>{" "}
             Session
           </h2>
@@ -61,7 +96,7 @@ const CTASection = () => {
           <div className="mt-5 sm:mt-6 flex flex-col sm:flex-row items-center justify-center gap-2.5 sm:gap-3">
             <button
               onClick={openModal}
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3 sm:py-3.5 rounded-xl bg-[#175ea4] hover:bg-[#1a6bbb] text-white text-sm sm:text-base font-bold transition-all duration-200 hover:shadow-lg hover:shadow-[#175ea4]/20 active:scale-[0.97] group"
+              className="w-full cursor-pointer sm:w-auto inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3 sm:py-3.5 rounded-xl bg-[#175ea4] hover:bg-[#1a6bbb] text-white text-sm sm:text-base font-bold transition-all duration-200 hover:shadow-lg hover:shadow-[#175ea4]/20 active:scale-[0.97] group"
             >
               Apply Now
               <HiOutlineArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5" />
@@ -81,21 +116,21 @@ const CTASection = () => {
 
       {/* ── University partners logo strip ── */}
       <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-10 pb-8 sm:pb-10">
-        <p className="text-center text-[11px] sm:text-xs font-semibold text-gray-400 uppercase tracking-[0.1em] mb-4 sm:mb-5">
+        <p className="text-center text-[11px] sm:text-xs font-semibold text-gray-400 uppercase tracking-widest mb-4 sm:mb-5">
           Partnered with 230+ universities across 35 countries
         </p>
 
         <div className="relative overflow-hidden">
           {/* Fade edges */}
-          <div className="absolute left-0 top-0 bottom-0 w-8 sm:w-12 bg-gradient-to-r from-blue-50/70 to-transparent z-10 pointer-events-none" />
-          <div className="absolute right-0 top-0 bottom-0 w-8 sm:w-12 bg-gradient-to-l from-blue-50/70 to-transparent z-10 pointer-events-none" />
+          <div className="absolute left-0 top-0 bottom-0 w-8 sm:w-12 bg-linear-to-r from-blue-50/70 to-transparent z-10 pointer-events-none" />
+          <div className="absolute right-0 top-0 bottom-0 w-8 sm:w-12 bg-linear-to-l from-blue-50/70 to-transparent z-10 pointer-events-none" />
 
           {/* Scrolling logos */}
           <div className="flex items-center gap-8 sm:gap-12 animate-scroll">
             {[...universityPartners, ...universityPartners].map((uni, i) => (
               <div
                 key={i}
-                className="flex-shrink-0 px-4 sm:px-5 py-2.5 sm:py-3 rounded-lg bg-white border border-gray-100"
+                className="shrink-0 px-4 sm:px-5 py-2.5 sm:py-3 rounded-lg bg-white border border-gray-100"
               >
                 <span className="text-[11px] sm:text-xs font-semibold text-gray-500 whitespace-nowrap">
                   {uni}
@@ -187,22 +222,8 @@ const CTASection = () => {
         </div>
       </div>
 
-      {/* Scroll animation */}
-      <style>{`
-        @keyframes scroll {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
-        }
-        .animate-scroll {
-          animation: scroll 25s linear infinite;
-        }
-        .animate-scroll:hover {
-          animation-play-state: paused;
-        }
-      `}</style>
-
       {/* Bottom separator */}
-      <div className="w-full h-px bg-gradient-to-r from-transparent via-gray-300/50 to-transparent" />
+      <div className="w-full h-px bg-linear-to-r from-transparent via-gray-300/50 to-transparent" />
     </section>
   );
 };
