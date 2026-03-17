@@ -141,14 +141,14 @@ const ApplyModal = ({ onClose }: { onClose: () => void }) => {
   };
 
   const inputBase = (hasError: boolean) =>
-    `w-full py-3 rounded-xl bg-gray-50 border outline-none text-sm text-gray-900 placeholder:text-gray-400 transition-all ${
+    `w-full py-2.5 sm:py-3 rounded-xl bg-gray-50 border outline-none text-sm text-gray-900 placeholder:text-gray-400 transition-all ${
       hasError
         ? "border-red-300 ring-2 ring-red-100"
         : "border-gray-200 focus:border-[#175ea4] focus:ring-2 focus:ring-[#175ea4]/10"
     }`;
 
   return (
-    <div className="fixed inset-0 z-100 flex items-center justify-center p-3 sm:p-4">
+    <div className="fixed inset-0 z-100 flex items-end sm:items-center justify-center p-0 sm:p-4">
       {/* Backdrop */}
       <div
         className="absolute inset-0 bg-black/50 backdrop-blur-sm animate-fadeIn"
@@ -156,7 +156,7 @@ const ApplyModal = ({ onClose }: { onClose: () => void }) => {
       />
 
       {/* Modal */}
-      <div className="relative z-10 w-full max-w-md max-h-[90vh] bg-white rounded-2xl sm:rounded-3xl shadow-2xl shadow-black/20 overflow-y-auto animate-slideUp">
+      <div className="relative z-10 w-full sm:max-w-md max-h-[95vh] sm:max-h-[90vh] bg-white rounded-t-2xl sm:rounded-2xl shadow-2xl shadow-black/20 overflow-y-auto animate-slideUp">
         {/* Close */}
         <button
           onClick={onClose}
@@ -167,20 +167,20 @@ const ApplyModal = ({ onClose }: { onClose: () => void }) => {
         </button>
 
         {/* Top accent */}
-        <div className="absolute top-0 left-0 right-0 h-1.5 bg-linear-to-r from-[#175ea4] via-emerald-500 to-amber-400" />
+        <div className="absolute top-0 left-0 right-0 h-1 sm:h-1.5 bg-linear-to-r from-[#175ea4] via-emerald-500 to-amber-400" />
 
-        <div className="p-5 sm:p-7 pt-6 sm:pt-8">
+        <div className="px-4 pb-5 pt-4 sm:p-7 sm:pt-8">
           {!submitted ? (
             <>
-              {/* Header */}
-              <div className="text-center mb-5 sm:mb-6">
-                <span className="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-blue-50 border border-blue-100 mb-3">
-                  <PiGraduationCapBold className="w-6 h-6 text-[#175ea4]" />
+              {/* Header — compact on mobile */}
+              <div className="text-center mb-3 sm:mb-6">
+                <span className="inline-flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-blue-50 border border-blue-100 mb-2 sm:mb-3">
+                  <PiGraduationCapBold className="w-5 h-5 sm:w-6 sm:h-6 text-[#175ea4]" />
                 </span>
-                <h3 className="text-lg sm:text-xl font-bold text-gray-900">
+                <h3 className="text-base sm:text-xl font-bold text-gray-900">
                   Get Your Offer in 24 Hours
                 </h3>
-                <p className="mt-1.5 text-[12px] sm:text-sm text-gray-400">
+                <p className="mt-1 text-[11px] sm:text-sm text-gray-400">
                   Fill in your details — our counsellor will reach out shortly
                 </p>
               </div>
@@ -188,11 +188,11 @@ const ApplyModal = ({ onClose }: { onClose: () => void }) => {
               {/* Form */}
               <form
                 onSubmit={handleSubmit}
-                className="space-y-3 sm:space-y-3.5"
+                className="space-y-2.5 sm:space-y-3.5"
               >
                 {/* Name */}
                 <div>
-                  <label className="block text-[11px] sm:text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1.5">
+                  <label className="block text-[10px] sm:text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1">
                     Full Name
                   </label>
                   <div className="relative">
@@ -217,7 +217,7 @@ const ApplyModal = ({ onClose }: { onClose: () => void }) => {
 
                 {/* Phone */}
                 <div>
-                  <label className="block text-[11px] sm:text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1.5">
+                  <label className="block text-[10px] sm:text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1">
                     Phone Number
                   </label>
                   <div className="relative">
@@ -249,7 +249,7 @@ const ApplyModal = ({ onClose }: { onClose: () => void }) => {
 
                 {/* City */}
                 <div>
-                  <label className="block text-[11px] sm:text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1.5">
+                  <label className="block text-[10px] sm:text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1">
                     Your City
                   </label>
                   <div className="relative">
@@ -274,7 +274,7 @@ const ApplyModal = ({ onClose }: { onClose: () => void }) => {
 
                 {/* Country */}
                 <div>
-                  <label className="block text-[11px] sm:text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1.5">
+                  <label className="block text-[10px] sm:text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1">
                     Preferred Country
                   </label>
                   <div className="relative">
@@ -323,7 +323,7 @@ const ApplyModal = ({ onClose }: { onClose: () => void }) => {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full flex items-center justify-center gap-2 py-3.5 rounded-xl bg-[#175ea4] hover:bg-[#1a6bbb] disabled:bg-[#175ea4]/70 text-white text-sm font-bold transition-all duration-200 hover:shadow-lg hover:shadow-[#175ea4]/20 active:scale-[0.98] mt-1"
+                  className="w-full flex items-center justify-center gap-2 py-3 sm:py-3.5 rounded-xl bg-[#175ea4] hover:bg-[#1a6bbb] disabled:bg-[#175ea4]/70 text-white text-sm font-bold transition-all duration-200 hover:shadow-lg hover:shadow-[#175ea4]/20 active:scale-[0.98] mt-0.5"
                 >
                   {loading ? (
                     <PiSpinnerGapBold className="w-5 h-5 animate-spin" />
@@ -337,7 +337,7 @@ const ApplyModal = ({ onClose }: { onClose: () => void }) => {
               </form>
 
               {/* Divider */}
-              <div className="flex items-center gap-3 mt-4 sm:mt-5">
+              <div className="flex items-center gap-3 mt-3 sm:mt-5">
                 <div className="flex-1 h-px bg-gray-100" />
                 <span className="text-[10px] sm:text-[11px] text-gray-400 font-medium">
                   or reach us directly
@@ -350,14 +350,14 @@ const ApplyModal = ({ onClose }: { onClose: () => void }) => {
                 href="https://wa.me/919500117792?text=Hi%2C%20I%27d%20like%20a%20free%20counselling%20session"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-3 sm:mt-4 w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 text-emerald-700 text-sm font-semibold transition-all active:scale-[0.98]"
+                className="mt-2.5 sm:mt-4 w-full flex items-center justify-center gap-2 py-2.5 sm:py-3 rounded-xl bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 text-emerald-700 text-sm font-semibold transition-all active:scale-[0.98]"
               >
                 <RiWhatsappFill className="w-5 h-5 text-emerald-600" />
                 Chat on WhatsApp
               </a>
 
               {/* Trust */}
-              <p className="mt-3 sm:mt-4 text-center text-[10px] text-gray-400">
+              <p className="mt-2.5 sm:mt-4 text-center text-[10px] text-gray-400">
                 🔒 Your data is secure · Free consultation · No spam calls
               </p>
             </>

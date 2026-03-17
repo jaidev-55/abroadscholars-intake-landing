@@ -114,13 +114,13 @@ const Header = () => {
               <RiWhatsappFill className="w-3.5 h-3.5 text-white" />
             </a>
 
-            <a
-              href="#apply"
+            <button
+              onClick={openModal}
               className="flex items-center gap-1 ml-0.5 px-2.5 py-1.5 rounded-lg bg-[#175ea4] active:bg-[#1a6bbb] text-white text-[10px] font-bold whitespace-nowrap transition-all active:scale-[0.97]"
             >
               Apply
               <HiOutlineArrowRight className="w-2.5 h-2.5" />
-            </a>
+            </button>
           </div>
         </div>
       </header>
