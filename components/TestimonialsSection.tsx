@@ -5,6 +5,7 @@ import { HiOutlineArrowRight } from "react-icons/hi2";
 import { IoStarSharp, IoPlayCircle, IoCloseCircle } from "react-icons/io5";
 import { PiQuotesBold, PiVideoFill, PiTimerBold } from "react-icons/pi";
 import { RiDoubleQuotesL } from "react-icons/ri";
+import { FcGoogle } from "react-icons/fc";
 import { useApplyModal } from "./ApplyModal";
 
 const textReviews = [
@@ -43,12 +44,14 @@ const videoTestimonials = [
   { videoId: "VGGo88MmhcM", duration: "0:54", score: "IELTS 8.0" },
 ];
 
-const Stars = () => (
+const Stars = ({ size = "sm" }: { size?: "sm" | "md" }) => (
   <div className="flex items-center gap-0.5">
     {[...Array(5)].map((_, i) => (
       <IoStarSharp
         key={i}
-        className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-400"
+        className={`${
+          size === "md" ? "w-4 h-4 sm:w-5 sm:h-5" : "w-3.5 h-3.5 sm:w-4 sm:h-4"
+        } text-amber-400`}
       />
     ))}
   </div>
@@ -84,6 +87,29 @@ const TestimonialsSection = () => {
             Don&apos;t just take our word for it — watch real students share
             their IELTS success stories trained with Abroad Scholars.
           </p>
+
+          {/* Google Rating Badge */}
+          <div className="mt-5 sm:mt-6 flex justify-center">
+            <a
+              href="https://www.google.com/maps/place/Abroad+Scholar/@13.0849714,80.2139796,16z/data=!4m6!3m5!1s0x3a5265e5507597a1:0xa3a181aaabcd9fe7!8m2!3d13.0849793!4d80.2162509!16s%2Fg%2F11x2n066db?entry=ttu"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-3 px-5 py-3 rounded-2xl bg-white border border-gray-200 shadow-sm hover:shadow-md hover:border-gray-300 transition-all duration-200 cursor-pointer"
+            >
+              <FcGoogle className="w-7 h-7 sm:w-8 sm:h-8 shrink-0" />
+              <div className="flex flex-col items-start leading-tight">
+                <div className="flex items-center gap-2">
+                  <span className="text-xl sm:text-2xl font-extrabold text-gray-900">
+                    4.9
+                  </span>
+                  <Stars size="md" />
+                </div>
+                <span className="text-[11px] sm:text-xs text-gray-500 font-medium">
+                  Based on 19+ Google Reviews
+                </span>
+              </div>
+            </a>
+          </div>
         </div>
 
         {/* ══ Video testimonials — horizontal scroll ══ */}

@@ -41,7 +41,7 @@ const VisitUsSection = () => {
 
   return (
     <section className="relative bg-white overflow-hidden">
-      <div className="w-full h-px bg-linear-to-r from-transparent via-gray-200 to-transparent" />
+      <div className="w-full h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 py-14 sm:py-18 lg:py-22">
         <div className="grid lg:grid-cols-2 gap-10 sm:gap-12 lg:gap-16 items-center">
@@ -53,7 +53,7 @@ const VisitUsSection = () => {
               Visit Us in Chennai
             </span>
 
-            <h2 className="text-2xl sm:text-5xl  font-extrabold text-gray-900 tracking-tight leading-[1.15]">
+            <h2 className="text-2xl sm:text-3xl lg:text-[2.5rem] font-extrabold text-gray-900 tracking-tight leading-[1.15]">
               Prefer a <span className="text-[#175ea4]">Face-to-Face</span>{" "}
               Counselling Session?
             </h2>
@@ -91,7 +91,7 @@ const VisitUsSection = () => {
             </div>
 
             {/* CTA */}
-            <div className="mt-7 flex justify-center sm:mt-8">
+            <div className="mt-7 sm:mt-8">
               <button
                 onClick={openModal}
                 className="flex items-center justify-center gap-2 px-6 sm:px-7 py-3 sm:py-3.5 rounded-xl bg-[#175ea4] hover:bg-[#1a6bbb] text-white text-sm sm:text-base font-bold transition-all duration-200 hover:shadow-xl hover:shadow-[#175ea4]/20 active:scale-[0.97] group cursor-pointer"
@@ -112,7 +112,7 @@ const VisitUsSection = () => {
           <div className="relative">
             <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden shadow-xl shadow-gray-200/60 border border-gray-100">
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3886.0!2d80.2095!3d13.085!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a5264d0d5555555%3A0x5555555555555555!2s2nd%20Ave%2C%20W%20Block%2C%20Anna%20Nagar%2C%20Chennai%2C%20Tamil%20Nadu%20600040!5e0!3m2!1sen!2sin!4v1"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3886.3!2d80.2139796!3d13.0849714!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a5265e5507597a1%3A0xa3a181aaabcd9fe7!2sAbroad%20Scholar!5e0!3m2!1sen!2sin!4v1"
                 width="100%"
                 height="420"
                 style={{ border: 0 }}
@@ -125,7 +125,7 @@ const VisitUsSection = () => {
             </div>
 
             {/* Floating hours badge */}
-            <div className="absolute -bottom-3 sm:-bottom-4 right-3 sm:right-5 z-20 flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white shadow-lg shadow-gray-900/8 border border-gray-100">
+            <div className="absolute -bottom-3 sm:-bottom-4 right-3 sm:right-5 z-20 flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white shadow-lg shadow-gray-900/[0.08] border border-gray-100">
               <div className="flex items-center justify-center w-8 h-8 rounded-full bg-emerald-50">
                 <PiClockBold className="w-4 h-4 text-emerald-600" />
               </div>
@@ -145,7 +145,7 @@ const VisitUsSection = () => {
         </div>
       </div>
 
-      <div className="w-full h-px bg-linear-to-r from-transparent via-gray-200 to-transparent" />
+      <div className="w-full h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent" />
     </section>
   );
 };
