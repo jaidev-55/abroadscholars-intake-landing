@@ -65,7 +65,7 @@ const MilestonesSection = () => {
 
   return (
     <section className="relative bg-white overflow-hidden">
-      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-10 py-10 sm:py-16 lg:py-20">
+      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-10 py-10 sm:py-16 ">
         {/* ── Header ── */}
         <div className="text-center max-w-2xl mx-auto mb-8 sm:mb-12">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 border border-blue-100 mb-4 sm:mb-5">
@@ -75,7 +75,7 @@ const MilestonesSection = () => {
             </span>
           </div>
 
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-gray-900 leading-tight tracking-tight">
+          <h2 className="text-2xl sm:text-6xl font-extrabold text-gray-900 leading-tight tracking-tight">
             Your Dream Destination is{" "}
             <span className="relative inline-block">
               <span className="relative z-10 text-[#175ea4]">Within Reach</span>

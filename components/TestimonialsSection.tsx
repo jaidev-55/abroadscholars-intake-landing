@@ -70,7 +70,7 @@ const TestimonialsSection = () => {
             </span>
           </div>
 
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-gray-900 leading-tight tracking-tight">
+          <h2 className="text-2xl sm:text-6xl font-extrabold text-gray-900 leading-tight tracking-tight">
             Real Students.{" "}
             <span className="relative inline-block">
               <span className="relative z-10 text-[#175ea4]">
