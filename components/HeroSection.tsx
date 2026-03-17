@@ -15,7 +15,7 @@ const HeroSection = () => {
   const { openModal } = useApplyModal();
   return (
     <section className="relative bg-white overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 pt-8 sm:pt-12 lg:pt-16 pb-12 sm:pb-16 lg:pb-20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 pt-8 sm:pt-12 lg:pt-16 pb-12 ">
         <div className="grid lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-16 items-center">
           <div className="order-2 lg:order-1">
             {/* Intake badge */}
@@ -25,24 +25,24 @@ const HeroSection = () => {
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
               </span>
               <span className="text-xs sm:text-sm font-semibold text-[#175ea4] tracking-wide">
-                September 2026 Intake — Now Open
+                2026 Intakes Open — Limited Seats Available
               </span>
             </div>
 
             {/* Headline */}
-            <h1 className="text-gray-900 text-3xl sm:text-4xl md:text-5xl lg:text-[3.8rem] font-extrabold leading-[1.1] tracking-tight">
-              Study Abroad in{" "}
-              <span className="text-[#175ea4]">Top Universities</span>
-              <br className="hidden sm:block" />
-              Offer in <span className="text-[#175ea4]">24 Hours</span>
+            <h1 className="text-gray-900 text-3xl sm:text-4xl md:text-5xl lg:text-[3.8rem] font-extrabold leading-[1.15] tracking-tight">
+              Study in <span className="text-[#175ea4]">UK, USA, Canada</span>{" "}
+              or <span className="text-[#175ea4]">Europe</span>
+              <br />
+              <span className="text-[#175ea4]">2026 Intakes Open</span>
             </h1>
 
-            {/* Sub-copy — destination-specific */}
+            {/* Sub-copy */}
             <p className="mt-4 sm:mt-5 text-sm sm:text-base lg:text-lg text-gray-500 leading-relaxed max-w-md lg:max-w-xl">
-              From London to New York, Toronto to Melbourne — we help ambitious
-              Indian students secure admissions at top-ranked universities
-              across 15+ countries. With expert guidance at every step, we make
-              your study abroad journey smooth, strategic, and successful.
+              Get your offer letter in just 24 hours. We guide you from
+              shortlisting the right university to landing your visa — no
+              confusion, no delays. 1,000+ students already made it. You&apos;re
+              next.
             </p>
 
             {/* Destination flags row */}
@@ -68,9 +68,9 @@ const HeroSection = () => {
             {/* Trust checklist */}
             <ul className="mt-5 sm:mt-6 space-y-2 sm:space-y-2.5">
               {[
-                "Direct admission to 230+ partner universities",
+                "Direct admission to 230+ partner universities worldwide",
                 "98% visa approval rate — highest in Chennai",
-                "Scholarship support up to ₹10L+",
+                "Scholarships up to ₹10L+ — we help you find & apply",
               ].map((item, i) => (
                 <li
                   key={i}
@@ -90,12 +90,12 @@ const HeroSection = () => {
                 onClick={openModal}
                 className="relative cursor-pointer flex items-center justify-center gap-2 px-6 sm:px-7 py-3 sm:py-3.5 rounded-xl bg-[#175ea4] hover:bg-[#1a6bbb] text-white text-sm sm:text-base font-bold transition-all duration-200 hover:shadow-xl hover:shadow-[#175ea4]/20 active:scale-[0.97] group"
               >
-                Get Your Free Counselling
+                Book Free Counselling Session
                 <HiOutlineArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5" />
               </button>
 
               <a
-                href="https://wa.me/919500117792?text=Hi%2C%20I%20want%20to%20study%20in%20the%20UK.%20Can%20you%20help%3F"
+                href="https://wa.me/919500117792?text=Hi%2C%20I%20want%20to%20study%20abroad.%20Can%20you%20help%3F"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center justify-center gap-2 px-6 sm:px-7 py-3 sm:py-3.5 rounded-xl bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 text-emerald-700 text-sm sm:text-base font-semibold transition-all duration-200 active:scale-[0.97]"
@@ -159,7 +159,7 @@ const HeroSection = () => {
               </div>
 
               {/* Floating badge — bottom-left */}
-              <div className="absolute -bottom-3 sm:-bottom-4 left-2 sm:left-4 z-20 flex items-center gap-2 sm:gap-2.5 px-3 sm:px-4 py-2 sm:py-2.5 rounded-lg sm:rounded-xl bg-white shadow-lg shadow-gray-900/[0.08] border border-gray-100">
+              <div className="absolute -bottom-3 sm:-bottom-4 left-2 sm:left-4 z-20 flex items-center gap-2 sm:gap-2.5 px-3 sm:px-4 py-2 sm:py-2.5 rounded-lg sm:rounded-xl bg-white shadow-lg shadow-gray-900/8 border border-gray-100">
                 <span className="flex items-center justify-center w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-emerald-50">
                   <IoShieldCheckmark className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-emerald-600" />
                 </span>
@@ -189,7 +189,7 @@ const HeroSection = () => {
         </div>
       </div>
 
-      <div className="w-full h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent" />
+      <div className="w-full h-px bg-linear-to-r from-transparent via-gray-200 to-transparent" />
     </section>
   );
 };
