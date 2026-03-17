@@ -2,11 +2,7 @@
 import { HiOutlineArrowRight, HiOutlineCheck } from "react-icons/hi2";
 import { RiWhatsappFill } from "react-icons/ri";
 import { IoShieldCheckmark } from "react-icons/io5";
-import {
-  PiStudentBold,
-  PiClockCountdownBold,
-  PiGlobeHemisphereWestBold,
-} from "react-icons/pi";
+import { PiStudentBold, PiClockCountdownBold } from "react-icons/pi";
 import { FiArrowUpRight } from "react-icons/fi";
 import { useApplyModal } from "./ApplyModal";
 import Image from "next/image";
@@ -15,7 +11,7 @@ const HeroSection = () => {
   const { openModal } = useApplyModal();
   return (
     <section className="relative bg-white overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 pt-8 sm:pt-12 lg:pt-16 pb-12 ">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 pt-8 sm:pt-12 lg:pt-16 pb-12 sm:pb-16 lg:pb-20">
         <div className="grid lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-16 items-center">
           <div className="order-2 lg:order-1">
             {/* Intake badge */}
@@ -30,30 +26,27 @@ const HeroSection = () => {
             </div>
 
             {/* Headline */}
-            <h1 className="text-gray-900 text-3xl sm:text-4xl md:text-5xl lg:text-[3.8rem] font-extrabold leading-[1.15] tracking-tight">
-              Study in <span className="text-[#175ea4]">UK, USA, Canada</span>{" "}
-              or <span className="text-[#175ea4]">Europe</span>
-              <br />
-              <span className="text-[#175ea4]">2026 Intakes Open</span>
+            <h1 className="text-gray-900 text-3xl sm:text-4xl md:text-5xl lg:text-[3.5rem] font-extrabold leading-[1.15] tracking-tight">
+              Study Abroad in 2026 Even with{" "}
+              <span className="text-[#175ea4]">Low Marks</span> or{" "}
+              <span className="text-[#175ea4]">Backlogs</span>
             </h1>
 
-            {/* Sub-copy */}
             <p className="mt-4 sm:mt-5 text-sm sm:text-base lg:text-lg text-gray-500 leading-relaxed max-w-md lg:max-w-xl">
-              Get your offer letter in just 24 hours. We guide you from
-              shortlisting the right university to landing your visa — no
-              confusion, no delays. 1,000+ students already made it. You&apos;re
-              next.
+              Get admission in UK, Ireland, Canada, Europe and Dubai with
+              complete support from application to visa.
             </p>
 
             {/* Destination flags row */}
             <div className="mt-4 sm:mt-5 flex items-center gap-3 flex-wrap">
               {[
                 { flag: "🇬🇧", name: "UK" },
-                { flag: "🇺🇸", name: "USA" },
-                { flag: "🇨🇦", name: "Canada" },
-                { flag: "🇦🇺", name: "Australia" },
-                { flag: "🇩🇪", name: "Germany" },
                 { flag: "🇮🇪", name: "Ireland" },
+                { flag: "🇨🇦", name: "Canada" },
+                { flag: "🇩🇪", name: "Europe" },
+                { flag: "🇦🇪", name: "Dubai" },
+                { flag: "🇺🇸", name: "USA" },
+                { flag: "🇦🇺", name: "Australia" },
               ].map((d, i) => (
                 <span
                   key={i}
@@ -65,24 +58,30 @@ const HeroSection = () => {
               ))}
             </div>
 
-            {/* Trust checklist */}
-            <ul className="mt-5 sm:mt-6 space-y-2 sm:space-y-2.5">
-              {[
-                "Direct admission to 230+ partner universities worldwide",
-                "98% visa approval rate — highest in Chennai",
-                "Scholarships up to ₹10L+ — we help you find & apply",
-              ].map((item, i) => (
-                <li
-                  key={i}
-                  className="flex items-start sm:items-center gap-2.5 text-sm sm:text-base text-gray-700"
-                >
-                  <span className="flex items-center justify-center w-5 h-5 mt-0.5 sm:mt-0 rounded-full bg-emerald-50 border border-emerald-100 shrink-0">
-                    <HiOutlineCheck className="w-3 h-3 text-emerald-600" />
-                  </span>
-                  {item}
-                </li>
-              ))}
-            </ul>
+            {/* "Not sure where to start?" worry points */}
+            <div className="mt-5 sm:mt-6">
+              <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2.5">
+                Not sure where to start?
+              </p>
+              <ul className="space-y-2 sm:space-y-2.5">
+                {[
+                  "Don\u2019t know which country to choose",
+                  "Worried about low marks or backlogs",
+                  "Confused about the visa process",
+                  "Unsure about budget & scholarships",
+                ].map((item, i) => (
+                  <li
+                    key={i}
+                    className="flex items-start sm:items-center gap-2.5 text-sm sm:text-base text-gray-700"
+                  >
+                    <span className="flex items-center justify-center w-5 h-5 mt-0.5 sm:mt-0 rounded-full bg-emerald-50 border border-emerald-100 shrink-0">
+                      <HiOutlineCheck className="w-3 h-3 text-emerald-600" />
+                    </span>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
 
             {/* CTAs */}
             <div className="mt-7 sm:mt-8 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
@@ -90,7 +89,7 @@ const HeroSection = () => {
                 onClick={openModal}
                 className="relative cursor-pointer flex items-center justify-center gap-2 px-6 sm:px-7 py-3 sm:py-3.5 rounded-xl bg-[#175ea4] hover:bg-[#1a6bbb] text-white text-sm sm:text-base font-bold transition-all duration-200 hover:shadow-xl hover:shadow-[#175ea4]/20 active:scale-[0.97] group"
               >
-                Book Free Counselling Session
+                Check Your Eligibility — Free
                 <HiOutlineArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5" />
               </button>
 
@@ -115,9 +114,9 @@ const HeroSection = () => {
                     label: "Students Placed",
                   },
                   {
-                    icon: PiGlobeHemisphereWestBold,
-                    value: "15+",
-                    label: "Countries",
+                    icon: IoShieldCheckmark,
+                    value: "98%",
+                    label: "Visa Success",
                   },
                   {
                     icon: PiClockCountdownBold,

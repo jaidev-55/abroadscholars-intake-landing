@@ -74,7 +74,7 @@ const TestimonialsSection = () => {
           </div>
 
           <h2 className="text-2xl sm:text-6xl font-extrabold text-gray-900 leading-tight tracking-tight">
-            Real Students.{" "}
+            Real Students
             <span className="relative inline-block">
               <span className="relative z-10 text-[#175ea4]">
                 Real Results.
