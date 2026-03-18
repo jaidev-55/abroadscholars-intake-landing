@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { HiOutlineArrowRight } from "react-icons/hi2";
-import { IoCallOutline, IoShieldCheckmarkSharp } from "react-icons/io5";
+import { IoCallOutline } from "react-icons/io5";
 import {
   PiGraduationCapBold,
   PiPhoneCallBold,
@@ -35,7 +35,6 @@ const universityPartners = [
 
 const CTASection = () => {
   const [phone, setPhone] = useState("");
-  const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const { openModal } = useApplyModal();
 
@@ -62,11 +61,11 @@ const CTASection = () => {
       const data = await res.json();
 
       if (data.success) {
-        setSubmitted(true);
-        setPhone("");
+        window.location.href = "/thank-you";
       }
     } catch (err) {
       console.error("Lead submission failed", err);
+      alert("Something went wrong. Please try again.");
     }
 
     setLoading(false);
@@ -160,60 +159,45 @@ const CTASection = () => {
             </p>
           </div>
 
-          {!submitted ? (
-            <form
-              onSubmit={handleSubmit}
-              className="flex flex-col sm:flex-row gap-2.5 sm:gap-3"
-            >
-              {/* Phone input */}
-              <div className="relative flex-1">
-                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-sm text-gray-400 font-medium select-none">
-                  +91
-                </span>
-                <input
-                  type="tel"
-                  inputMode="numeric"
-                  maxLength={10}
-                  placeholder="Enter your phone number"
-                  value={phone}
-                  onChange={(e) =>
-                    setPhone(e.target.value.replace(/\D/g, "").slice(0, 10))
-                  }
-                  className="w-full pl-11 pr-4 py-3 sm:py-3.5 rounded-xl bg-gray-50 border border-gray-200 focus:border-[#175ea4] focus:ring-2 focus:ring-[#175ea4]/10 outline-none text-sm text-gray-900 placeholder:text-gray-400 transition-all"
-                  required
-                />
-              </div>
-
-              {/* Submit button */}
-              <button
-                type="submit"
-                disabled={loading || phone.length < 10}
-                className="flex items-center justify-center gap-2 px-6 py-3 sm:py-3.5 rounded-xl bg-[#175ea4] hover:bg-[#1a6bbb] disabled:bg-gray-300 disabled:cursor-not-allowed text-white text-sm font-bold transition-all duration-200 hover:shadow-lg hover:shadow-[#175ea4]/20 active:scale-[0.97] whitespace-nowrap"
-              >
-                {loading ? (
-                  <PiSpinnerGapBold className="w-4 h-4 animate-spin" />
-                ) : (
-                  <>
-                    Request Callback
-                    <IoCallOutline className="w-4 h-4" />
-                  </>
-                )}
-              </button>
-            </form>
-          ) : (
-            /* Success state */
-            <div className="text-center py-4">
-              <span className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-emerald-50 border border-emerald-100 mb-3">
-                <IoShieldCheckmarkSharp className="w-6 h-6 text-emerald-600" />
+          <form
+            onSubmit={handleSubmit}
+            className="flex flex-col sm:flex-row gap-2.5 sm:gap-3"
+          >
+            {/* Phone input */}
+            <div className="relative flex-1">
+              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-sm text-gray-400 font-medium select-none">
+                +91
               </span>
-              <p className="text-base font-bold text-gray-900">
-                We&apos;ll call you shortly!
-              </p>
-              <p className="mt-1 text-sm text-gray-500">
-                Expect a call within 30 minutes from our expert counsellor.
-              </p>
+              <input
+                type="tel"
+                inputMode="numeric"
+                maxLength={10}
+                placeholder="Enter your phone number"
+                value={phone}
+                onChange={(e) =>
+                  setPhone(e.target.value.replace(/\D/g, "").slice(0, 10))
+                }
+                className="w-full pl-11 pr-4 py-3 sm:py-3.5 rounded-xl bg-gray-50 border border-gray-200 focus:border-[#175ea4] focus:ring-2 focus:ring-[#175ea4]/10 outline-none text-sm text-gray-900 placeholder:text-gray-400 transition-all"
+                required
+              />
             </div>
-          )}
+
+            {/* Submit button */}
+            <button
+              type="submit"
+              disabled={loading || phone.length < 10}
+              className="flex items-center justify-center gap-2 px-6 py-3 sm:py-3.5 rounded-xl bg-[#175ea4] hover:bg-[#1a6bbb] disabled:bg-gray-300 disabled:cursor-not-allowed text-white text-sm font-bold transition-all duration-200 hover:shadow-lg hover:shadow-[#175ea4]/20 active:scale-[0.97] whitespace-nowrap"
+            >
+              {loading ? (
+                <PiSpinnerGapBold className="w-4 h-4 animate-spin" />
+              ) : (
+                <>
+                  Request Callback
+                  <IoCallOutline className="w-4 h-4" />
+                </>
+              )}
+            </button>
+          </form>
 
           {/* Trust text */}
           <p className="mt-3 sm:mt-4 text-center text-[10px] sm:text-[11px] text-gray-400">

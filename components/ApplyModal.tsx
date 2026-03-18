@@ -12,7 +12,6 @@ import { HiOutlineArrowRight } from "react-icons/hi2";
 import {
   PiGraduationCapBold,
   PiSpinnerGapBold,
-  PiCheckCircleBold,
   PiUserBold,
   PiPhoneBold,
   PiGlobeHemisphereWestBold,
@@ -85,7 +84,6 @@ const ApplyModal = ({ onClose }: { onClose: () => void }) => {
   const [city, setCity] = useState("");
   const [country, setCountry] = useState("");
   const [loading, setLoading] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   const validate = () => {
@@ -131,7 +129,8 @@ const ApplyModal = ({ onClose }: { onClose: () => void }) => {
         throw new Error("Failed to submit lead");
       }
 
-      setSubmitted(true);
+      // Redirect to thank-you page for conversion tracking
+      window.location.href = "/thank-you";
     } catch (err) {
       console.error(err);
       alert("Something went wrong. Please try again.");
@@ -170,218 +169,190 @@ const ApplyModal = ({ onClose }: { onClose: () => void }) => {
         <div className="absolute top-0 left-0 right-0 h-1 sm:h-1.5 bg-linear-to-r from-[#175ea4] via-emerald-500 to-amber-400" />
 
         <div className="px-4 pb-5 pt-4 sm:p-7 sm:pt-8">
-          {!submitted ? (
-            <>
-              {/* Header — compact on mobile */}
-              <div className="text-center mb-3 sm:mb-6">
-                <span className="inline-flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-blue-50 border border-blue-100 mb-2 sm:mb-3">
-                  <PiGraduationCapBold className="w-5 h-5 sm:w-6 sm:h-6 text-[#175ea4]" />
-                </span>
-                <h3 className="text-base sm:text-xl font-bold text-gray-900">
-                  Get Your Offer in 24 Hours
-                </h3>
-                <p className="mt-1 text-[11px] sm:text-sm text-gray-400">
-                  Fill in your details — our counsellor will reach out shortly
-                </p>
-              </div>
-
-              {/* Form */}
-              <form
-                onSubmit={handleSubmit}
-                className="space-y-2.5 sm:space-y-3.5"
-              >
-                {/* Name */}
-                <div>
-                  <label className="block text-[10px] sm:text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1">
-                    Full Name
-                  </label>
-                  <div className="relative">
-                    <PiUserBold className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-                    <input
-                      type="text"
-                      placeholder="Enter your full name"
-                      value={name}
-                      onChange={(e) => {
-                        setName(e.target.value);
-                        clearError("name");
-                      }}
-                      className={`${inputBase(!!errors.name)} pl-10 pr-4`}
-                    />
-                  </div>
-                  {errors.name && (
-                    <p className="mt-1 text-[11px] text-red-500">
-                      {errors.name}
-                    </p>
-                  )}
-                </div>
-
-                {/* Phone */}
-                <div>
-                  <label className="block text-[10px] sm:text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1">
-                    Phone Number
-                  </label>
-                  <div className="relative">
-                    <span className="absolute left-3 top-1/2 -translate-y-1/2 flex items-center gap-1 text-sm text-gray-400 font-medium select-none">
-                      <PiPhoneBold className="w-4 h-4" />
-                      +91
-                    </span>
-                    <input
-                      type="tel"
-                      inputMode="numeric"
-                      maxLength={10}
-                      placeholder="10-digit number"
-                      value={phone}
-                      onChange={(e) => {
-                        setPhone(
-                          e.target.value.replace(/\D/g, "").slice(0, 10),
-                        );
-                        clearError("phone");
-                      }}
-                      className={`${inputBase(!!errors.phone)} pl-18 pr-4`}
-                    />
-                  </div>
-                  {errors.phone && (
-                    <p className="mt-1 text-[11px] text-red-500">
-                      {errors.phone}
-                    </p>
-                  )}
-                </div>
-
-                {/* City */}
-                <div>
-                  <label className="block text-[10px] sm:text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1">
-                    Your City
-                  </label>
-                  <div className="relative">
-                    <PiMapPinBold className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-                    <input
-                      type="text"
-                      placeholder="e.g. Chennai, Mumbai, Delhi"
-                      value={city}
-                      onChange={(e) => {
-                        setCity(e.target.value);
-                        clearError("city");
-                      }}
-                      className={`${inputBase(!!errors.city)} pl-10 pr-4`}
-                    />
-                  </div>
-                  {errors.city && (
-                    <p className="mt-1 text-[11px] text-red-500">
-                      {errors.city}
-                    </p>
-                  )}
-                </div>
-
-                {/* Country */}
-                <div>
-                  <label className="block text-[10px] sm:text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1">
-                    Preferred Country
-                  </label>
-                  <div className="relative">
-                    <PiGlobeHemisphereWestBold className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
-                    <select
-                      value={country}
-                      onChange={(e) => {
-                        setCountry(e.target.value);
-                        clearError("country");
-                      }}
-                      className={`${inputBase(!!errors.country)} pl-10 pr-10 appearance-none cursor-pointer ${
-                        !country ? "text-gray-400" : "text-gray-900"
-                      }`}
-                    >
-                      <option value="" disabled>
-                        Select a country
-                      </option>
-                      {countries.map((c) => (
-                        <option key={c} value={c}>
-                          {c}
-                        </option>
-                      ))}
-                    </select>
-                    <svg
-                      className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                      strokeWidth={2}
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M19 9l-7 7-7-7"
-                      />
-                    </svg>
-                  </div>
-                  {errors.country && (
-                    <p className="mt-1 text-[11px] text-red-500">
-                      {errors.country}
-                    </p>
-                  )}
-                </div>
-
-                {/* Submit */}
-                <button
-                  type="submit"
-                  disabled={loading}
-                  className="w-full flex items-center justify-center gap-2 py-3 sm:py-3.5 rounded-xl bg-[#175ea4] hover:bg-[#1a6bbb] disabled:bg-[#175ea4]/70 text-white text-sm font-bold transition-all duration-200 hover:shadow-lg hover:shadow-[#175ea4]/20 active:scale-[0.98] mt-0.5"
-                >
-                  {loading ? (
-                    <PiSpinnerGapBold className="w-5 h-5 animate-spin" />
-                  ) : (
-                    <>
-                      Get Offer in 24Hrs
-                      <HiOutlineArrowRight className="w-4 h-4" />
-                    </>
-                  )}
-                </button>
-              </form>
-
-              {/* Divider */}
-              <div className="flex items-center gap-3 mt-3 sm:mt-5">
-                <div className="flex-1 h-px bg-gray-100" />
-                <span className="text-[10px] sm:text-[11px] text-gray-400 font-medium">
-                  or reach us directly
-                </span>
-                <div className="flex-1 h-px bg-gray-100" />
-              </div>
-
-              {/* WhatsApp */}
-              <a
-                href="https://wa.me/919500117792?text=Hi%2C%20I%27d%20like%20a%20free%20counselling%20session"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-2.5 sm:mt-4 w-full flex items-center justify-center gap-2 py-2.5 sm:py-3 rounded-xl bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 text-emerald-700 text-sm font-semibold transition-all active:scale-[0.98]"
-              >
-                <RiWhatsappFill className="w-5 h-5 text-emerald-600" />
-                Chat on WhatsApp
-              </a>
-
-              {/* Trust */}
-              <p className="mt-2.5 sm:mt-4 text-center text-[10px] text-gray-400">
-                🔒 Your data is secure · Free consultation · No spam calls
-              </p>
-            </>
-          ) : (
-            /* ── Success ── */
-            <div className="text-center py-6 sm:py-8">
-              <span className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-emerald-50 border border-emerald-100 mb-4">
-                <PiCheckCircleBold className="w-8 h-8 text-emerald-600" />
+          <>
+            {/* Header — compact on mobile */}
+            <div className="text-center mb-3 sm:mb-6">
+              <span className="inline-flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-blue-50 border border-blue-100 mb-2 sm:mb-3">
+                <PiGraduationCapBold className="w-5 h-5 sm:w-6 sm:h-6 text-[#175ea4]" />
               </span>
-              <h3 className="text-xl font-bold text-gray-900">
-                You&apos;re All Set! 🎉
+              <h3 className="text-base sm:text-xl font-bold text-gray-900">
+                Get Your Offer in 24 Hours
               </h3>
-              <p className="mt-2 text-sm text-gray-500 max-w-xs mx-auto">
-                Our counsellor will reach out within 30 minutes. Keep your phone
-                handy!
+              <p className="mt-1 text-[11px] sm:text-sm text-gray-400">
+                Fill in your details — our counsellor will reach out shortly
               </p>
-              <button
-                onClick={onClose}
-                className="mt-6 px-6 py-2.5 rounded-xl bg-gray-100 hover:bg-gray-200 text-sm font-semibold text-gray-700 transition-colors"
-              >
-                Close
-              </button>
             </div>
-          )}
+
+            {/* Form */}
+            <form
+              onSubmit={handleSubmit}
+              className="space-y-2.5 sm:space-y-3.5"
+            >
+              {/* Name */}
+              <div>
+                <label className="block text-[10px] sm:text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1">
+                  Full Name
+                </label>
+                <div className="relative">
+                  <PiUserBold className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                  <input
+                    type="text"
+                    placeholder="Enter your full name"
+                    value={name}
+                    onChange={(e) => {
+                      setName(e.target.value);
+                      clearError("name");
+                    }}
+                    className={`${inputBase(!!errors.name)} pl-10 pr-4`}
+                  />
+                </div>
+                {errors.name && (
+                  <p className="mt-1 text-[11px] text-red-500">{errors.name}</p>
+                )}
+              </div>
+
+              {/* Phone */}
+              <div>
+                <label className="block text-[10px] sm:text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1">
+                  Phone Number
+                </label>
+                <div className="relative">
+                  <span className="absolute left-3 top-1/2 -translate-y-1/2 flex items-center gap-1 text-sm text-gray-400 font-medium select-none">
+                    <PiPhoneBold className="w-4 h-4" />
+                    +91
+                  </span>
+                  <input
+                    type="tel"
+                    inputMode="numeric"
+                    maxLength={10}
+                    placeholder="10-digit number"
+                    value={phone}
+                    onChange={(e) => {
+                      setPhone(e.target.value.replace(/\D/g, "").slice(0, 10));
+                      clearError("phone");
+                    }}
+                    className={`${inputBase(!!errors.phone)} pl-18 pr-4`}
+                  />
+                </div>
+                {errors.phone && (
+                  <p className="mt-1 text-[11px] text-red-500">
+                    {errors.phone}
+                  </p>
+                )}
+              </div>
+
+              {/* City */}
+              <div>
+                <label className="block text-[10px] sm:text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1">
+                  Your City
+                </label>
+                <div className="relative">
+                  <PiMapPinBold className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                  <input
+                    type="text"
+                    placeholder="e.g. Chennai, Mumbai, Delhi"
+                    value={city}
+                    onChange={(e) => {
+                      setCity(e.target.value);
+                      clearError("city");
+                    }}
+                    className={`${inputBase(!!errors.city)} pl-10 pr-4`}
+                  />
+                </div>
+                {errors.city && (
+                  <p className="mt-1 text-[11px] text-red-500">{errors.city}</p>
+                )}
+              </div>
+
+              {/* Country */}
+              <div>
+                <label className="block text-[10px] sm:text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1">
+                  Preferred Country
+                </label>
+                <div className="relative">
+                  <PiGlobeHemisphereWestBold className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
+                  <select
+                    value={country}
+                    onChange={(e) => {
+                      setCountry(e.target.value);
+                      clearError("country");
+                    }}
+                    className={`${inputBase(!!errors.country)} pl-10 pr-10 appearance-none cursor-pointer ${
+                      !country ? "text-gray-400" : "text-gray-900"
+                    }`}
+                  >
+                    <option value="" disabled>
+                      Select a country
+                    </option>
+                    {countries.map((c) => (
+                      <option key={c} value={c}>
+                        {c}
+                      </option>
+                    ))}
+                  </select>
+                  <svg
+                    className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth={2}
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M19 9l-7 7-7-7"
+                    />
+                  </svg>
+                </div>
+                {errors.country && (
+                  <p className="mt-1 text-[11px] text-red-500">
+                    {errors.country}
+                  </p>
+                )}
+              </div>
+
+              {/* Submit */}
+              <button
+                type="submit"
+                disabled={loading}
+                className="w-full flex items-center justify-center gap-2 py-3 sm:py-3.5 rounded-xl bg-[#175ea4] hover:bg-[#1a6bbb] disabled:bg-[#175ea4]/70 text-white text-sm font-bold transition-all duration-200 hover:shadow-lg hover:shadow-[#175ea4]/20 active:scale-[0.98] mt-0.5"
+              >
+                {loading ? (
+                  <PiSpinnerGapBold className="w-5 h-5 animate-spin" />
+                ) : (
+                  <>
+                    Get Offer in 24Hrs
+                    <HiOutlineArrowRight className="w-4 h-4" />
+                  </>
+                )}
+              </button>
+            </form>
+
+            {/* Divider */}
+            <div className="flex items-center gap-3 mt-3 sm:mt-5">
+              <div className="flex-1 h-px bg-gray-100" />
+              <span className="text-[10px] sm:text-[11px] text-gray-400 font-medium">
+                or reach us directly
+              </span>
+              <div className="flex-1 h-px bg-gray-100" />
+            </div>
+
+            {/* WhatsApp */}
+            <a
+              href="https://wa.me/919500117792?text=Hi%2C%20I%27d%20like%20a%20free%20counselling%20session"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-2.5 sm:mt-4 w-full flex items-center justify-center gap-2 py-2.5 sm:py-3 rounded-xl bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 text-emerald-700 text-sm font-semibold transition-all active:scale-[0.98]"
+            >
+              <RiWhatsappFill className="w-5 h-5 text-emerald-600" />
+              Chat on WhatsApp
+            </a>
+
+            {/* Trust */}
+            <p className="mt-2.5 sm:mt-4 text-center text-[10px] text-gray-400">
+              🔒 Your data is secure · Free consultation · No spam calls
+            </p>
+          </>
         </div>
       </div>
 
@@ -389,8 +360,10 @@ const ApplyModal = ({ onClose }: { onClose: () => void }) => {
       <style>{`
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         @keyframes slideUp { from { opacity: 0; transform: translateY(24px) scale(0.97); } to { opacity: 1; transform: translateY(0) scale(1); } }
+        @keyframes checkDraw { from { opacity: 0; transform: scale(0.5) rotate(-10deg); } to { opacity: 1; transform: scale(1) rotate(0deg); } }
         .animate-fadeIn { animation: fadeIn 0.2s ease-out; }
         .animate-slideUp { animation: slideUp 0.3s ease-out; }
+        .animate-checkDraw { animation: checkDraw 0.4s ease-out 0.2s both; }
       `}</style>
     </div>
   );
