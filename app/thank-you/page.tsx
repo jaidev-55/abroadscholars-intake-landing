@@ -45,9 +45,9 @@ const nextSteps = [
   {
     icon: RiFileList3Line,
     step: "3",
-    title: "Application Starts",
+    title: "Document Collection",
     description:
-      "SOP, documentation & university application — all kicked off the same day.",
+      "We\u2019ll need your academic transcripts, test scores & ID documents for a complete assessment.",
     badge: "Same day",
     badgeStyle: "bg-amber-500 text-white",
     accent: "#f59e0b",
@@ -58,7 +58,7 @@ const nextSteps = [
 const trustBadges = [
   { icon: RiGroupFill, label: "1000+ Placed" },
   { icon: RiShieldCheckFill, label: "98% Visa" },
-  { icon: RiStarFill, label: "4.9★ Google" },
+  { icon: RiStarFill, label: "4.9\u2605 Google" },
 ];
 
 const ThankYouPage = () => {
@@ -81,7 +81,7 @@ const ThankYouPage = () => {
           </Link>
         </div>
 
-        {/* xx HERO CARD */}
+        {/* ══════════════ HERO CARD ══════════════ */}
         <div
           className="ty-fade mt-5 bg-white rounded-[20px] border border-gray-100 shadow-[0_4px_40px_rgba(0,0,0,.06)] overflow-hidden"
           style={{ "--d": "80ms" } as React.CSSProperties}
@@ -284,7 +284,7 @@ const ThankYouPage = () => {
         </div>
       </div>
 
-      {/* ── CSS-only animations — no useState/useEffect needed ── */}
+      {/* ── CSS-only animations ── */}
       <style>{`
         .thankyou-root {
           font-family: 'DM Sans', 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
