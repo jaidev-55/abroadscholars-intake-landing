@@ -22,6 +22,9 @@ export const metadata: Metadata = {
     "student visa consultants",
     "abroad scholars",
   ],
+  icons: {
+    icon: "/favicon.svg",
+  },
   openGraph: {
     title: "Study Abroad Admission in 24 Hours | Abroad Scholars",
     description:
