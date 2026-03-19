@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "../global.css";
 import { ApplyModalProvider } from "@/components/ApplyModal";
 import WhatsAppButton from "@/components/WhatsappButton";
+import Script from "next/script";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -43,6 +44,20 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.variable} antialiased`}>
+        {/* Google Ads Tag */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=AW-17264874781"
+          strategy="afterInteractive"
+        />
+        <Script id="google-ads" strategy="afterInteractive">
+          {`
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'AW-17264874781');
+    `}
+        </Script>
+
         <ApplyModalProvider>{children}</ApplyModalProvider>
         <WhatsAppButton />
       </body>
