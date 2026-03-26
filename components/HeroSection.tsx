@@ -1,22 +1,105 @@
 "use client";
+import { useState } from "react";
 import { HiOutlineArrowRight, HiOutlineCheck } from "react-icons/hi2";
 import { RiWhatsappFill } from "react-icons/ri";
-import { IoShieldCheckmark } from "react-icons/io5";
-import { PiStudentBold, PiClockCountdownBold } from "react-icons/pi";
+import {
+  PiStudentBold,
+  PiClockCountdownBold,
+  PiSpinnerGapBold,
+  PiUserBold,
+  PiPhoneBold,
+  PiGlobeHemisphereWestBold,
+  PiMapPinBold,
+  PiGraduationCapBold,
+  PiShieldCheckBold,
+} from "react-icons/pi";
 import { FiArrowUpRight } from "react-icons/fi";
-import { useApplyModal } from "./ApplyModal";
-import Image from "next/image";
+import { MdVerified } from "react-icons/md";
+
+const countries = [
+  "United Kingdom",
+  "Ireland",
+  "Canada",
+  "Australia",
+  "Germany",
+  "France",
+  "United States",
+  "New Zealand",
+  "Finland",
+  "Belgium",
+  "South Korea",
+  "Singapore",
+  "Dubai / UAE",
+  "Other",
+];
 
 const HeroSection = () => {
-  const { openModal } = useApplyModal();
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [city, setCity] = useState("");
+  const [country, setCountry] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [errors, setErrors] = useState<Record<string, string>>({});
+
+  const validate = () => {
+    const errs: Record<string, string> = {};
+    if (!name.trim()) errs.name = "Name is required";
+    if (!phone || phone.length < 10)
+      errs.phone = "Enter a valid 10-digit number";
+    if (!city.trim()) errs.city = "City is required";
+    if (!country) errs.country = "Select your preferred country";
+    setErrors(errs);
+    return Object.keys(errs).length === 0;
+  };
+
+  const clearError = (field: string) => {
+    if (errors[field]) setErrors((p) => ({ ...p, [field]: "" }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!validate()) return;
+    try {
+      setLoading(true);
+      const res = await fetch("/api/leads", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name,
+          phone,
+          city,
+          country,
+          source: "hero-inline-form",
+          page: window.location.pathname,
+        }),
+      });
+      const data = await res.json();
+      if (!data.success) throw new Error("Failed to submit lead");
+      window.location.href = "/thank-you";
+    } catch (err) {
+      console.error(err);
+      alert("Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const inputBase = (hasError: boolean) =>
+    `w-full py-3 rounded-xl bg-gray-50 border outline-none text-sm text-gray-900 placeholder:text-gray-400 transition-all duration-150 ${
+      hasError
+        ? "border-red-300 bg-red-50/40 ring-2 ring-red-100"
+        : "border-gray-200 hover:border-gray-300 focus:bg-white focus:border-[#175ea4] focus:ring-2 focus:ring-[#175ea4]/10"
+    }`;
+
   return (
-    <section className="relative bg-white overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 pt-8 sm:pt-12 lg:pt-16 pb-12 sm:pb-16 lg:pb-20">
-        <div className="grid lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-16 items-center">
-          <div className="order-2 lg:order-1">
+    <section className="relative bg-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 pt-8 sm:pt-12 lg:pt-16 pb-16 sm:pb-20 lg:pb-24">
+        <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-start">
+          {/* ── LEFT: Copy — shows second on mobile, first on desktop ── */}
+          <div className="order-2 lg:order-1 lg:pt-4">
             {/* Intake badge */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-100 mb-5 sm:mb-6">
-              <span className="relative flex h-2 w-2">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-100 mb-5">
+              <span className="relative flex h-2 w-2 shrink-0">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75" />
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
               </span>
@@ -26,19 +109,20 @@ const HeroSection = () => {
             </div>
 
             {/* Headline */}
-            <h1 className="text-gray-900 text-3xl sm:text-4xl md:text-5xl lg:text-[3.5rem] font-extrabold leading-[1.15] tracking-tight">
-              Study Abroad in 2026 Even with{" "}
+            <h1 className="text-gray-900 text-3xl sm:text-4xl lg:text-[3rem] xl:text-[3.25rem] font-extrabold leading-[1.13] tracking-tight">
+              Study Abroad in 2026{" "}
+              <span className="block sm:inline">Even with </span>
               <span className="text-[#175ea4]">Low Marks</span> or{" "}
               <span className="text-[#175ea4]">Backlogs</span>
             </h1>
 
-            <p className="mt-4 sm:mt-5 text-sm sm:text-base lg:text-lg text-gray-500 leading-relaxed max-w-md lg:max-w-xl">
+            <p className="mt-4 text-sm sm:text-base lg:text-lg text-gray-500 leading-relaxed max-w-lg">
               Get admission in UK, Ireland, Canada, Europe and Dubai with
               complete support from application to visa.
             </p>
 
-            {/* Destination flags row */}
-            <div className="mt-4 sm:mt-5 flex items-center gap-3 flex-wrap">
+            {/* Destination flags */}
+            <div className="mt-4 flex flex-wrap gap-2">
               {[
                 { flag: "🇬🇧", name: "UK" },
                 { flag: "🇮🇪", name: "Ireland" },
@@ -52,18 +136,18 @@ const HeroSection = () => {
                   key={i}
                   className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-gray-50 border border-gray-100 text-[11px] sm:text-xs font-medium text-gray-600"
                 >
-                  <span className="text-base">{d.flag}</span>
+                  <span className="text-sm leading-none">{d.flag}</span>
                   {d.name}
                 </span>
               ))}
             </div>
 
-            {/* "Not sure where to start?" worry points */}
-            <div className="mt-5 sm:mt-6">
-              <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2.5">
+            {/* Pain points */}
+            <div className="mt-6">
+              <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-3">
                 Not sure where to start?
               </p>
-              <ul className="space-y-2 sm:space-y-2.5">
+              <ul className="space-y-2.5">
                 {[
                   "Don\u2019t know which country to choose",
                   "Worried about low marks or backlogs",
@@ -72,9 +156,9 @@ const HeroSection = () => {
                 ].map((item, i) => (
                   <li
                     key={i}
-                    className="flex items-start sm:items-center gap-2.5 text-sm sm:text-base text-gray-700"
+                    className="flex items-center gap-3 text-sm sm:text-base text-gray-700"
                   >
-                    <span className="flex items-center justify-center w-5 h-5 mt-0.5 sm:mt-0 rounded-full bg-emerald-50 border border-emerald-100 shrink-0">
+                    <span className="flex items-center justify-center w-5 h-5 rounded-full bg-emerald-50 border border-emerald-200 shrink-0">
                       <HiOutlineCheck className="w-3 h-3 text-emerald-600" />
                     </span>
                     {item}
@@ -83,30 +167,9 @@ const HeroSection = () => {
               </ul>
             </div>
 
-            {/* CTAs */}
-            <div className="mt-7 sm:mt-8 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
-              <button
-                onClick={openModal}
-                className="relative cursor-pointer flex items-center justify-center gap-2 px-6 sm:px-7 py-3 sm:py-3.5 rounded-xl bg-[#175ea4] hover:bg-[#1a6bbb] text-white text-sm sm:text-base font-bold transition-all duration-200 hover:shadow-xl hover:shadow-[#175ea4]/20 active:scale-[0.97] group"
-              >
-                Check Your Eligibility — Free
-                <HiOutlineArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5" />
-              </button>
-
-              <a
-                href="https://wa.me/919500117792?text=Hi%2C%20I%20want%20to%20study%20abroad.%20Can%20you%20help%3F"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center justify-center gap-2 px-6 sm:px-7 py-3 sm:py-3.5 rounded-xl bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 text-emerald-700 text-sm sm:text-base font-semibold transition-all duration-200 active:scale-[0.97]"
-              >
-                <RiWhatsappFill className="w-5 h-5 text-emerald-600" />
-                Chat on WhatsApp
-              </a>
-            </div>
-
-            {/* Social proof */}
-            <div className="mt-7 sm:mt-8 pt-5 sm:pt-6 border-t border-gray-100">
-              <div className="grid grid-cols-3 gap-3 sm:flex sm:flex-wrap sm:items-center sm:gap-x-6 sm:gap-y-3">
+            {/* Social proof bar */}
+            <div className="mt-8 pt-6 border-t border-gray-100">
+              <div className="flex flex-wrap items-center gap-5 sm:gap-7">
                 {[
                   {
                     icon: PiStudentBold,
@@ -114,7 +177,7 @@ const HeroSection = () => {
                     label: "Students Placed",
                   },
                   {
-                    icon: IoShieldCheckmark,
+                    icon: PiShieldCheckBold,
                     value: "98%",
                     label: "Visa Success",
                   },
@@ -124,19 +187,13 @@ const HeroSection = () => {
                     label: "Offer Letter",
                   },
                 ].map((stat, i) => (
-                  <div
-                    key={i}
-                    className="flex flex-col sm:flex-row items-center sm:items-center gap-1 sm:gap-2 text-center sm:text-left"
-                  >
-                    <stat.icon className="w-5 h-5 text-[#175ea4]" />
-                    <span className="text-xs sm:text-sm text-gray-500">
-                      <span className="font-bold text-gray-900 block sm:inline">
+                  <div key={i} className="flex items-center gap-2">
+                    <stat.icon className="w-5 h-5 text-[#175ea4] shrink-0" />
+                    <span className="text-sm text-gray-500">
+                      <span className="font-bold text-gray-900">
                         {stat.value}
                       </span>{" "}
-                      <span className="hidden sm:inline">{stat.label}</span>
-                      <span className="sm:hidden text-[10px]">
-                        {stat.label}
-                      </span>
+                      {stat.label}
                     </span>
                   </div>
                 ))}
@@ -144,51 +201,261 @@ const HeroSection = () => {
             </div>
           </div>
 
-          {/* Right: Hero Image */}
+          {/* ── RIGHT: Form Card — shows first on mobile ── */}
           <div className="order-1 lg:order-2">
-            <div className="relative mx-auto max-w-md sm:max-w-lg lg:max-w-none">
-              <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden shadow-xl shadow-gray-200/60 w-full h-150">
-                <Image
-                  src="/images/Hero_img.jpeg"
-                  alt="Indian student holding university admission offer letter"
-                  fill
-                  className="object-cover"
-                  priority
+            <div className="relative mt-4 lg:mt-0 pt-6 pb-14">
+              <div className="relative rounded-2xl bg-white border border-gray-100 shadow-xl shadow-gray-200/60">
+                {/* Top gradient bar */}
+                <div
+                  className="h-1.5 rounded-t-2xl"
+                  style={{
+                    background:
+                      "linear-gradient(90deg, #175ea4 0%, #10b981 55%, #f59e0b 100%)",
+                  }}
                 />
+
+                <div className="px-5 sm:px-7 pt-5 sm:pt-6 pb-6 sm:pb-7">
+                  {/* Card header */}
+                  <div className="flex items-center gap-3 mb-5">
+                    <span className="shrink-0 flex items-center justify-center w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-[#eef4fb] border border-[#c7dcf5]">
+                      <PiGraduationCapBold className="w-5 h-5 text-[#175ea4]" />
+                    </span>
+                    <div>
+                      <h2 className="text-[15px] sm:text-[17px] font-bold text-gray-900 leading-tight">
+                        Get Your Free Eligibility Check
+                      </h2>
+                      <p className="mt-0.5 text-xs text-gray-400">
+                        Our counsellor will call you within 24 hours
+                      </p>
+                    </div>
+                  </div>
+
+                  <form onSubmit={handleSubmit} className="space-y-3.5">
+                    {/* Name */}
+                    <div>
+                      <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1.5">
+                        Full Name
+                      </label>
+                      <div className="relative">
+                        <PiUserBold className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
+                        <input
+                          type="text"
+                          placeholder="Enter your full name"
+                          value={name}
+                          onChange={(e) => {
+                            setName(e.target.value);
+                            clearError("name");
+                          }}
+                          className={`${inputBase(!!errors.name)} pl-10 pr-4`}
+                        />
+                      </div>
+                      {errors.name && (
+                        <p className="mt-1 text-[11px] text-red-500 flex items-center gap-1">
+                          <FiArrowUpRight className="w-3 h-3 rotate-45 shrink-0" />
+                          {errors.name}
+                        </p>
+                      )}
+                    </div>
+
+                    {/* Phone */}
+                    <div>
+                      <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1.5">
+                        Phone Number
+                      </label>
+                      <div className="relative">
+                        {/* +91 prefix with divider */}
+                        <div className="absolute left-0 inset-y-0 flex items-center pl-3 pr-2.5 gap-1.5 border-r border-gray-200 pointer-events-none select-none">
+                          <PiPhoneBold className="w-3.5 h-3.5 text-gray-400" />
+                          <span className="text-sm font-semibold text-gray-500">
+                            +91
+                          </span>
+                        </div>
+                        <input
+                          type="tel"
+                          inputMode="numeric"
+                          maxLength={10}
+                          placeholder="10-digit mobile number"
+                          value={phone}
+                          onChange={(e) => {
+                            setPhone(
+                              e.target.value.replace(/\D/g, "").slice(0, 10),
+                            );
+                            clearError("phone");
+                          }}
+                          className={`${inputBase(!!errors.phone)} pl-17.5 pr-12`}
+                        />
+                        {phone.length > 0 && (
+                          <span className="absolute right-3 top-1/2 -translate-y-1/2 text-[10px] text-gray-400 tabular-nums pointer-events-none">
+                            {phone.length}/10
+                          </span>
+                        )}
+                      </div>
+                      {errors.phone && (
+                        <p className="mt-1 text-[11px] text-red-500 flex items-center gap-1">
+                          <FiArrowUpRight className="w-3 h-3 rotate-45 shrink-0" />
+                          {errors.phone}
+                        </p>
+                      )}
+                    </div>
+
+                    {/* City + Country — stacked on very small, side-by-side on sm+ */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      <div>
+                        <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1.5">
+                          Your City
+                        </label>
+                        <div className="relative">
+                          <PiMapPinBold className="absolute left-3.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gray-400 pointer-events-none" />
+                          <input
+                            type="text"
+                            placeholder="e.g. Chennai"
+                            value={city}
+                            onChange={(e) => {
+                              setCity(e.target.value);
+                              clearError("city");
+                            }}
+                            className={`${inputBase(!!errors.city)} pl-9 pr-3`}
+                          />
+                        </div>
+                        {errors.city && (
+                          <p className="mt-1 text-[10px] text-red-500">
+                            {errors.city}
+                          </p>
+                        )}
+                      </div>
+
+                      <div>
+                        <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1.5">
+                          Destination
+                        </label>
+                        <div className="relative">
+                          <PiGlobeHemisphereWestBold className="absolute left-3.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gray-400 pointer-events-none" />
+                          <select
+                            value={country}
+                            onChange={(e) => {
+                              setCountry(e.target.value);
+                              clearError("country");
+                            }}
+                            className={`${inputBase(!!errors.country)} pl-9 pr-8 appearance-none cursor-pointer ${!country ? "text-gray-400" : "text-gray-900"}`}
+                          >
+                            <option value="" disabled>
+                              Country
+                            </option>
+                            {countries.map((c) => (
+                              <option key={c} value={c}>
+                                {c}
+                              </option>
+                            ))}
+                          </select>
+                          {/* Chevron using react-icons */}
+                          <PiGlobeHemisphereWestBold
+                            className="hidden"
+                            aria-hidden
+                          />
+                          <svg
+                            className="absolute right-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gray-400 pointer-events-none"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                            strokeWidth={2.5}
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M19 9l-7 7-7-7"
+                            />
+                          </svg>
+                        </div>
+                        {errors.country && (
+                          <p className="mt-1 text-[10px] text-red-500">
+                            {errors.country}
+                          </p>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* Submit CTA */}
+                    <button
+                      type="submit"
+                      disabled={loading}
+                      className="w-full flex items-center justify-center gap-2.5 py-3.5 rounded-xl bg-[#175ea4] hover:bg-[#1568b8] disabled:opacity-70 text-white text-sm sm:text-[15px] font-bold tracking-wide transition-all duration-200 hover:shadow-xl hover:shadow-[#175ea4]/30 active:scale-[0.98] group mt-0.5"
+                    >
+                      {loading ? (
+                        <>
+                          <PiSpinnerGapBold className="w-5 h-5 animate-spin" />
+                          Submitting…
+                        </>
+                      ) : (
+                        <>
+                          Check My Eligibility — Free
+                          <HiOutlineArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
+                        </>
+                      )}
+                    </button>
+                  </form>
+
+                  {/* Divider */}
+                  <div className="flex items-center gap-3 my-4">
+                    <div className="flex-1 h-px bg-gray-100" />
+                    <span className="text-[10px] text-gray-400 font-medium whitespace-nowrap uppercase tracking-wider">
+                      or reach us directly
+                    </span>
+                    <div className="flex-1 h-px bg-gray-100" />
+                  </div>
+
+                  {/* WhatsApp */}
+                  <a
+                    href="https://wa.me/919500117792?text=Hi%2C%20I%20want%20to%20study%20abroad.%20Can%20you%20help%3F"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full flex items-center justify-center gap-2.5 py-3 rounded-xl bg-[#f0faf5] hover:bg-[#d9f2e6] border border-emerald-200 text-emerald-700 text-sm font-semibold transition-all duration-150 active:scale-[0.98]"
+                  >
+                    <RiWhatsappFill className="w-5 h-5 text-emerald-500" />
+                    Chat on WhatsApp
+                  </a>
+
+                  {/* Trust line */}
+                  <p className="mt-3 text-center text-[10px] text-gray-400 leading-relaxed">
+                    🔒 100% secure &nbsp;·&nbsp; No spam calls &nbsp;·&nbsp;
+                    Free consultation
+                  </p>
+                </div>
+
+                <div className="absolute -top-3.25 right-4 z-10 flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#175ea4] shadow-lg shadow-[#175ea4]/25">
+                  <PiClockCountdownBold className="w-3.5 h-3.5 text-amber-400" />
+                  <span className="text-[11px] font-bold text-white tracking-wide">
+                    24hr Offer
+                  </span>
+                  <FiArrowUpRight className="w-3 h-3 text-amber-400" />
+                </div>
               </div>
 
-              {/* Floating badge — bottom-left */}
-              <div className="absolute -bottom-3 sm:-bottom-4 left-2 sm:left-4 z-20 flex items-center gap-2 sm:gap-2.5 px-3 sm:px-4 py-2 sm:py-2.5 rounded-lg sm:rounded-xl bg-white shadow-lg shadow-gray-900/8 border border-gray-100">
-                <span className="flex items-center justify-center w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-emerald-50">
-                  <IoShieldCheckmark className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-emerald-600" />
+              <div className="absolute bottom-1 left-4 z-10 flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl bg-white shadow-lg shadow-gray-200/80 border border-gray-100">
+                <span className="flex items-center justify-center w-8 h-8 rounded-full bg-emerald-50 border border-emerald-100 shrink-0">
+                  <MdVerified className="w-4 h-4 text-emerald-600" />
                 </span>
-                <span className="flex flex-col leading-tight">
-                  <span className="text-[11px] sm:text-xs font-bold text-gray-900">
+                <div className="flex flex-col leading-tight">
+                  <span className="text-xs font-bold text-gray-900">
                     Trusted by 1000+ Students
                   </span>
-                  <span className="text-[9px] sm:text-[10px] text-gray-500">
+                  <span className="text-[10px] text-gray-500">
                     Chennai&apos;s #1 Study Abroad Partner
                   </span>
-                </span>
+                </div>
               </div>
-
-              {/* Floating badge — top-right */}
-              <div className="absolute -top-2.5 sm:-top-3 right-2 sm:right-4 z-20 flex items-center gap-1.5 sm:gap-2 px-3 sm:px-3.5 py-1.5 sm:py-2 rounded-lg bg-[#175ea4] shadow-lg shadow-[#175ea4]/20">
-                <PiClockCountdownBold className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-400" />
-                <span className="text-[11px] sm:text-xs font-bold text-white">
-                  24hr Offer
-                </span>
-                <FiArrowUpRight className="w-3 h-3 text-amber-400" />
-              </div>
-
-              {/* Offset bg accent */}
-              <div className="absolute -z-10 top-4 sm:top-6 -right-3 sm:-right-4 w-full h-full rounded-2xl sm:rounded-3xl bg-blue-50 border border-blue-100/50" />
             </div>
           </div>
         </div>
       </div>
 
-      <div className="w-full h-px bg-linear-to-r from-transparent via-gray-200 to-transparent" />
+      {/* Bottom divider */}
+      <div
+        className="w-full h-px"
+        style={{
+          background:
+            "linear-gradient(90deg, transparent 0%, #e5e7eb 50%, transparent 100%)",
+        }}
+      />
     </section>
   );
 };
